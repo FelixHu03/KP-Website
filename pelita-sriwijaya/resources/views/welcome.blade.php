@@ -63,6 +63,26 @@
             </button>
         </div>
 
+        <div x-data="{
+            images: [
+                '{{ asset('assets/image/logo tingkat sekolah/logo-SD-test.jpg') }}',
+                '{{ asset('assets/image/logo tingkat sekolah/logo-tk-test.png') }}',
+                '{{ asset('assets/image/logo tingkat sekolah/logo-SD-test.jpg') }}'
+            ],
+            handleClick(image) {
+                alert('Gambar diklik: ' + image); // Ganti sesuai kebutuhan
+            }
+        }" class="grid grid-flow-col grid-cols-3 gap-5 justify-center items-center">
+            <template x-for="(image, index) in images" :key="index">
+                <a :href="'#' + image" class="cursor-pointer transition-transform hover:scale-105">
+                    <img :src="image" class="w-40 h-40 object-cover rounded-lg shadow-md" alt="Logo Image" />
+                </a>
+            </template>
+        </div>
+
+
+
+
         <!-- Deskripsi -->
         <p class="text-lg text-gray-600">
             Your one-stop solution for all your needs.
