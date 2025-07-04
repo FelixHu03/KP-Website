@@ -23,13 +23,13 @@
             <!-- Desktop Navbar -->
             <nav class="hidden md:block">
                 <ul class="flex space-x-6 text-lg font-medium">
-                    <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-200">Home</a>
+                    <li><a href="/" class="text-gray-700 hover:text-blue-600 transition duration-200">Home</a>
                     </li>
                     <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-200">About</a>
                     </li>
                     <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-200">Services</a>
                     </li>
-                    <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-200">Contact</a>
+                    <li><a href="/contact" class="text-gray-700 hover:text-blue-600 transition duration-200">Contact</a>
                     </li>
                 </ul>
             </nav>
@@ -48,10 +48,10 @@
         <!-- Mobile Menu -->
         <div class="md:hidden px-4 pb-4" x-show="open" x-transition>
             <ul class="flex flex-col space-y-2 text-base font-medium">
-                <li><a href="#" class="text-gray-700 hover:text-blue-600">Home</a></li>
+                <li><a href="/" class="text-gray-700 hover:text-blue-600">Home</a></li>
                 <li><a href="#" class="text-gray-700 hover:text-blue-600">About</a></li>
                 <li><a href="#" class="text-gray-700 hover:text-blue-600">Services</a></li>
-                <li><a href="#" class="text-gray-700 hover:text-blue-600">Contact</a></li>
+                <li><a href="/contact" class="text-gray-700 hover:text-blue-600">Contact</a></li>
             </ul>
         </div>
     </header>
@@ -62,7 +62,7 @@
     </main>
     {{-- footer --}}
     <footer class="bg-white mt-8 items-center text-center py-4">
-        &copy; 2023 Pelita Sriwijaya. All rights reserved.
+        &copy; 2025 Pelita Sriwijaya. All rights reserved.
     </footer>
 </body>
 

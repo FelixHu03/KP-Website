@@ -70,12 +70,13 @@
                 '{{ asset('assets/image/logo tingkat sekolah/logo-SD-test.jpg') }}'
             ],
             handleClick(image) {
-                alert('Gambar diklik: ' + image); // Ganti sesuai kebutuhan
+                alert('Gambar diklik: ' + image);
             }
         }" class="grid grid-flow-col grid-cols-3 gap-5 justify-center items-center">
             <template x-for="(image, index) in images" :key="index">
                 <a :href="'#' + image" class="cursor-pointer transition-transform hover:scale-105">
-                    <img :src="image" class="w-40 h-40 object-cover rounded-lg shadow-md" alt="Logo Image" />
+                    <img :src="image" alt="Logo Image"
+                        class="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 object-cover rounded-lg shadow-md" />
                 </a>
             </template>
         </div>
