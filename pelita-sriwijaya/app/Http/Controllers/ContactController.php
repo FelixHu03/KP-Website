@@ -28,7 +28,16 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $val = $request->validate([
+            'namalengkap' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'telepon' => 'nullable|string|max:20',
+            'subject' => 'required|string|max:255',
+            'pesan' => 'required|string',
+        ]);
+
+        contact::create($val);
+        return redirect()->route('contact.index')->with('success', 'Pesan Anda telah terkirim!');
     }
 
     /**
