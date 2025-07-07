@@ -9,10 +9,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class="bg-gray-100 text-gray-800 font-sans">
 
     <!-- Header -->
-    <header class="bg-white shadow-md" x-data="{ open: false }">
+    <header class="bg-gray-100 shadow-md" x-data="{ open: false }">
         <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
             <!-- Logo & Title -->
             <div class="flex items-center space-x-4">
@@ -27,7 +27,7 @@
                     </li>
                     <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-200">About</a>
                     </li>
-                    <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-200">Services</a>
+                    <li><a href="/ppdb-online" class="text-gray-700 hover:text-blue-600 transition duration-200">PPDB Online</a>
                     </li>
                     <li><a href="/contact" class="text-gray-700 hover:text-blue-600 transition duration-200">Contact</a>
                     </li>
@@ -50,7 +50,7 @@
             <ul class="flex flex-col space-y-2 text-base font-medium">
                 <li><a href="/" class="text-gray-700 hover:text-blue-600">Home</a></li>
                 <li><a href="#" class="text-gray-700 hover:text-blue-600">About</a></li>
-                <li><a href="#" class="text-gray-700 hover:text-blue-600">Services</a></li>
+                <li><a href="/ppdb-online" class="text-gray-700 hover:text-blue-600">PPDB Online</a></li>
                 <li><a href="/contact" class="text-gray-700 hover:text-blue-600">Contact</a></li>
             </ul>
         </div>
@@ -61,7 +61,7 @@
         @yield('main-content')
     </main>
     {{-- footer --}}
-    <footer class="bg-white mt-8 items-center text-center py-4">
+    <footer class="bg-gray-100 mt-8 items-center text-center py-4 ">
         &copy; 2025 Pelita Sriwijaya. All rights reserved.
     </footer>
 </body>
