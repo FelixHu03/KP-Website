@@ -25,7 +25,7 @@
                 <ul class="flex space-x-6 text-lg font-medium">
                     <li><a href="/" class="text-gray-700 hover:text-blue-600 transition duration-200">Home</a>
                     </li>
-                    <li><a href="#" class="text-gray-700 hover:text-blue-600 transition duration-200">About</a>
+                    <li><a href="/about" class="text-gray-700 hover:text-blue-600 transition duration-200">About</a>
                     </li>
                     <li><a href="/ppdb-online" class="text-gray-700 hover:text-blue-600 transition duration-200">PPDB Online</a>
                     </li>
