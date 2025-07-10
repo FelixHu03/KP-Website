@@ -3,9 +3,9 @@
 @section('main-content')
     <div class="max-w-7xl mx-auto px-4 py-12" x-data="{ submitted: false }">
         <!-- Judul -->
-        <h2 class="text-3xl font-bold text-blue-800 mb-8 text-center">
+        <h1 class="text-4xl font-bold text-blue-800 mb-8 text-start">
             HUBUNGI KAMI
-        </h2>
+        </h1>
 
         <!-- Notifikasi Jika Berhasil -->
         @if (session('success'))

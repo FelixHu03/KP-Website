@@ -12,7 +12,7 @@ class PpdbOnlineController extends Controller
      */
     public function index()
     {
-        return view('page.ppdb-online');
+        return view('page.ppdb.ppdb-online');
     }
 
     /**

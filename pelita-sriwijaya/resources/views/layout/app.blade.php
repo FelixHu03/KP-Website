@@ -51,7 +51,7 @@
             <ul class="flex flex-col space-y-2 text-base font-medium">
                 <li><a href="/" class="text-gray-700 hover:text-blue-600">Home</a></li>
                 <li><a href="#" class="text-gray-700 hover:text-blue-600">About</a></li>
-                <li><a href="/ppdb-online" class="text-gray-700 hover:text-blue-600">PPDB Online</a></li>
+                <li><a href="{{ route('ppdb.register') }}" class="text-gray-700 hover:text-blue-600">PPDB Online</a></li>
                 <li><a href="/contact" class="text-gray-700 hover:text-blue-600">Contact</a></li>
             </ul>
         </div>
@@ -126,7 +126,7 @@
 
             <h1 class="text-lg font-bold mt-6">Pendaftaran</h1>
             <ul class="list-disc list-inside marker:text-orange-500 mt-3 space-y-2">
-                <li><a href="/ppdb-online" class="hover:text-orange-600">PPDB Online</a></li>
+                <li><a href="{{ route('ppdb.register') }}" class="hover:text-orange-600">PPDB Online</a></li>
             </ul>
         </div>
 
