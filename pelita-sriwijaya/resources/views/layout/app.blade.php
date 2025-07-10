@@ -16,19 +16,18 @@
         <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
             <!-- Logo & Title -->
             <div class="flex items-center space-x-4">
-                <img src="{{ asset('assets/image/logo.png') }}" alt="Pelita Sriwijaya Logo" class="h-12 w-auto">
-                <h1 class="text-2xl md:text-3xl font-bold text-blue-800">Pelita Sriwijaya</h1>
+                <a href="/" class="flex items-center space-x-4 hover:opacity-80 transition">
+                    <img src="{{ asset('assets/image/logo.png') }}" alt="Pelita Sriwijaya Logo" class="h-12 w-auto">
+                    <h1 class="text-2xl md:text-3xl font-bold text-blue-800">Pelita Sriwijaya</h1>
+                </a>
             </div>
 
             <!-- Desktop Navbar -->
             <nav class="hidden md:block">
                 <ul class="flex space-x-6 text-lg font-medium">
-                    <li><a href="/" class="text-gray-700 hover:text-blue-600 transition duration-200">Home</a>
-                    </li>
                     <li><a href="/about" class="text-gray-700 hover:text-blue-600 transition duration-200">About</a>
                     </li>
-                    <li><a href="/ppdb-online" class="text-gray-700 hover:text-blue-600 transition duration-200">PPDB
-                            Online</a>
+                    <li><a href="/ppdb-online" class="text-gray-700 hover:text-blue-600 transition duration-200">Pendaftaran Siswa</a>
                     </li>
                     <li><a href="/contact" class="text-gray-700 hover:text-blue-600 transition duration-200">Contact</a>
                     </li>
