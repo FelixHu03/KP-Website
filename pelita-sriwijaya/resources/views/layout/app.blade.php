@@ -121,7 +121,7 @@
             <ul class="list-disc list-inside marker:text-orange-500 mt-3 space-y-2">
                 <li><a href="/sejarah" class="hover:text-orange-600">Sejarah</a></li>
                 <li><a href="/visi-misi" class="hover:text-orange-600">Visi dan Misi</a></li>
-                <li><a href="/karir" class="hover:text-orange-600">Karir</a></li>
+                <li><a href="{{ route('contact') }}" class="hover:text-orange-600">Kontak</a></li>
             </ul>
 
             <h1 class="text-lg font-bold mt-6">Pendaftaran</h1>
