@@ -28,7 +28,7 @@
                     <li><a href="/about" class="text-gray-700 hover:text-blue-600 transition duration-200">About</a>
                     </li>
                     <li><a href="{{ route('page.ppdb.welcomePpdb') }}"
-                            class="text-gray-700 hover:text-blue-600 transition duration-200">Pendaftaran Siswa<</a>
+                            class="text-gray-700 hover:text-blue-600 transition duration-200">Pendaftaran Siswa</a>
                     </li>
                     <li><a href="/contact" class="text-gray-700 hover:text-blue-600 transition duration-200">Kontak</a>
                     </li>
