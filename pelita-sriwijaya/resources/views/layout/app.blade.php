@@ -16,21 +16,20 @@
         <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
             <!-- Logo & Title -->
             <div class="flex items-center space-x-4">
-                <img src="{{ asset('assets/image/logo.png') }}" alt="Pelita Sriwijaya Logo" class="h-12 w-auto">
-                <h1 class="text-2xl md:text-3xl font-bold text-blue-800">Pelita Sriwijaya</h1>
+                <a href="/" class="flex items-center space-x-4 hover:opacity-80 transition">
+                    <img src="{{ asset('assets/image/logo.png') }}" alt="Pelita Sriwijaya Logo" class="h-12 w-auto">
+                    <h1 class="text-2xl md:text-3xl font-bold text-blue-800">Pelita Sriwijaya</h1>
+                </a>
             </div>
 
             <!-- Desktop Navbar -->
             <nav class="hidden md:block">
                 <ul class="flex space-x-6 text-lg font-medium">
-                    <li><a href="/" class="text-gray-700 hover:text-blue-600 transition duration-200">Home</a>
+                    <li><a href="/about" class="text-gray-700 hover:text-blue-600 transition duration-200">Tentang</a>
                     </li>
-                    <li><a href="/about" class="text-gray-700 hover:text-blue-600 transition duration-200">About</a>
+                    <li><a href="/ppdb-online" class="text-gray-700 hover:text-blue-600 transition duration-200">Pendaftaran Siswa</a>
                     </li>
-                    <li><a href="/ppdb-online" class="text-gray-700 hover:text-blue-600 transition duration-200">PPDB
-                            Online</a>
-                    </li>
-                    <li><a href="/contact" class="text-gray-700 hover:text-blue-600 transition duration-200">Contact</a>
+                    <li><a href="/contact" class="text-gray-700 hover:text-blue-600 transition duration-200">Kontak</a>
                     </li>
                 </ul>
             </nav>
@@ -74,15 +73,15 @@
             <div>
                 <h1 class="text-lg font-bold">FOLLOW US</h1>
                 <div class="flex space-x-4 mt-4">
-                    <a href="#" class="hover:opacity-75">
+                    <a href="https://www.facebook.com/pelitasriwijayasch" class="hover:opacity-75">
                         <img src="{{ asset('assets/image/logo-sosial-media/facebook.png') }}" alt="Facebook"
                             class="h-10 w-10">
                     </a>
-                    <a href="#" class="hover:opacity-75">
+                    <a href="https://www.instagram.com/sekolahpelitasriwijaya/" class="hover:opacity-75">
                         <img src="{{ asset('assets/image/logo-sosial-media/instagram.png') }}" alt="Instagram"
                             class="h-10 w-10">
                     </a>
-                    <a href="#" class="hover:opacity-75">
+                    <a href="https://www.youtube.com/@SekolahpelitaSriwijaya" class="hover:opacity-75">
                         <img src="{{ asset('assets/image/logo-sosial-media/youtube.png') }}" alt="YouTube"
                             class="h-10 w-10">
                     </a>
@@ -121,12 +120,12 @@
             <ul class="list-disc list-inside marker:text-orange-500 mt-3 space-y-2">
                 <li><a href="/sejarah" class="hover:text-orange-600">Sejarah</a></li>
                 <li><a href="/visi-misi" class="hover:text-orange-600">Visi dan Misi</a></li>
-                <li><a href="/karir" class="hover:text-orange-600">Karir</a></li>
+                <li><a href="{{ route('contact') }}" class="hover:text-orange-600">Kontak</a></li>
             </ul>
 
-            <h1 class="text-lg font-bold mt-6">Pendaftaran</h1>
+            <h1 class="text-lg font-bold mt-6">PENDAFTARAN</h1>
             <ul class="list-disc list-inside marker:text-orange-500 mt-3 space-y-2">
-                <li><a href="{{ route('ppdb.register') }}" class="hover:text-orange-600">PPDB Online</a></li>
+                <li><a href="{{ route('ppdb.register') }}" class="hover:text-orange-600">Pendaftaran Siswa</a></li>
             </ul>
         </div>
 
