@@ -127,7 +127,7 @@
 
             <h1 class="text-lg font-bold mt-6">PENDAFTARAN</h1>
             <ul class="list-disc list-inside marker:text-orange-500 mt-3 space-y-2">
-                <li><a href="{{ route('page.ppdb.welcomePpdb') }}" class="hover:text-orange-600">Pendaftaran Siswa<</a></li>
+                <li><a href="{{ route('page.ppdb.welcomePpdb') }}" class="hover:text-orange-600">Pendaftaran Siswa</a></li>
             </ul>
         </div>
 
