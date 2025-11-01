@@ -17,20 +17,21 @@
             <!-- Logo & Title -->
             <a href="/" class="flex items-center space-x-4 hover:opacity-80 transition">
                 <img src="{{ asset('assets/image/logo.png') }}" alt="Pelita Sriwijaya Logo" class="h-12 w-auto">
-                <h1 class="text-2xl md:text-3xl font-bold text-blue-800">Pelita Sriwijaya</h1>
+                <h1 class="text-2xl md:text-3xl font-bold text-orange-600">Pelita Sriwijaya</h1>
             </a>
 
             <!-- Desktop Navbar -->
             <nav class="hidden md:block">
                 <ul class="flex space-x-6 text-lg font-medium">
-                    <li><a href="/" class="text-gray-700 hover:text-blue-600 transition duration-200">Home</a>
+                    <li><a href="/" class="text-gray-700 hover:text-orange-600 transition duration-200">Home</a>
                     </li>
-                    <li><a href="/about" class="text-gray-700 hover:text-blue-600 transition duration-200">About</a>
+                    <li><a href="/about" class="text-gray-700 hover:text-orange-600 transition duration-200">About</a>
                     </li>
                     <li><a href="{{ route('page.ppdb.welcomePpdb') }}"
-                            class="text-gray-700 hover:text-blue-600 transition duration-200">Pendaftaran Siswa</a>
+                            class="text-gray-700 hover:text-orange-600 transition duration-200">Pendaftaran Siswa</a>
                     </li>
-                    <li><a href="/contact" class="text-gray-700 hover:text-blue-600 transition duration-200">Kontak</a>
+                    <li><a href="/contact"
+                            class="text-gray-700 hover:text-orange-600 transition duration-200">Kontak</a>
                     </li>
                 </ul>
             </nav>
@@ -49,8 +50,8 @@
         <!-- Mobile Menu -->
         <div class="md:hidden px-4 pb-4" x-show="open" x-transition>
             <ul class="flex flex-col space-y-2 text-base font-medium">
-                <li><a href="/" class="text-gray-700 hover:text-blue-600">Home</a></li>
-                <li><a href="#" class="text-gray-700 hover:text-blue-600">About</a></li>
+                <li><a href="/" class="text-gray-700 hover:text-orange-600">Home</a></li>
+                <li><a href="/about" class="text-gray-700 hover:text-blue-600">About</a></li>
                 <li><a href="{{ route('page.ppdb.welcomePpdb') }}" class="text-gray-700 hover:text-blue-600">PPDB
                         Online</a></li>
                 <li><a href="/contact" class="text-gray-700 hover:text-blue-600">Kontak</a></li>
@@ -66,13 +67,12 @@
     <footer
         class="text-gray-50 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 p-10 shadow-[0_-4px_10px_rgba(0,0,0,0.1)] bg-gray-900">
         <!-- Logo & Sosial Media -->
-        <div class="flex flex-col items-start space-y-4">
+        <div class="flex flex-col items-center space-y-4"> <h1 class="text-xl font-bold">Sekolah Pelita Sriwijaya</h1>
             <div class="flex flex-row items-center space-x-4">
                 <img src="{{ asset('assets/image/logo.png') }}" alt="Pelita Sriwijaya Logo" class="h-24 w-auto">
-                <h1 class="text-xl font-bold">Sekolah <br>Pelita Sriwijaya</h1>
             </div>
 
-            <div>
+            <div class="flex flex-col items-center w-full">
                 <h1 class="text-lg font-bold">FOLLOW US</h1>
                 <div class="flex space-x-4 mt-4">
                     <a href="https://www.facebook.com/pelitasriwijayasch" class="hover:opacity-75">
@@ -127,7 +127,8 @@
 
             <h1 class="text-lg font-bold mt-6">PENDAFTARAN</h1>
             <ul class="list-disc list-inside marker:text-orange-500 mt-3 space-y-2">
-                <li><a href="{{ route('page.ppdb.welcomePpdb') }}" class="hover:text-orange-600">Pendaftaran Siswa</a></li>
+                <li><a href="{{ route('page.ppdb.welcomePpdb') }}" class="hover:text-orange-600">Pendaftaran
+                        Siswa</a></li>
             </ul>
         </div>
 

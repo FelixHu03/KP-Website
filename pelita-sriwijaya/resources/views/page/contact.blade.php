@@ -3,7 +3,7 @@
 @section('main-content')
     <div class="max-w-7xl mx-auto px-4 py-12" x-data="{ submitted: false }">
         <!-- Judul -->
-        <h1 class="text-4xl font-bold text-blue-800 mb-8 text-start">
+        <h1 class="text-4xl font-bold text-orange-600 mb-8 text-start">
             HUBUNGI KAMI
         </h1>
 
@@ -46,7 +46,7 @@
                         <button type="button" @click="$refs.form.reset()" class="px-4 py-2 border rounded">
                             Reset
                         </button>
-                        <button type="submit" class="px-4 py-2 bg-blue-700 text-white rounded">
+                        <button type="submit" class="px-4 py-2 bg-orange-600 text-white rounded">
                             Kirim Pesan
                         </button>
                     </div>
