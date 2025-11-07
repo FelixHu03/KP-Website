@@ -40,9 +40,9 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'ppdb' => [ // ← ini tambahan
+        'ppdb' => [
             'driver' => 'session',
-            'provider' => 'userppdbs',
+            'provider' => 'user_ppdbs',
         ],
     ],
 
@@ -69,7 +69,7 @@ return [
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
 
-        'userppdbs' => [ // ← ini tambahan
+        'user_ppdbs' => [ 
             'driver' => 'eloquent',
             'model' => App\Models\UserPpdb::class,
         ],
@@ -106,6 +106,12 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        'user_ppdbs' => [ 
+        'provider' => 'user_ppdbs', 
+        'table' => 'password_reset_tokens',
+        'expire' => 10,//60
+        'throttle' => 10,//60
+    ],
     ],
 
     /*

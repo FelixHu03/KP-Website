@@ -15,7 +15,7 @@ class RegisterAccountPPDBController extends Controller
      */
     public function index()
     {
-        return view('page.ppdb.registerAccount');
+        return view('page.ppdb.auth.registerAccount');
     }
 
     /**
@@ -32,7 +32,7 @@ class RegisterAccountPPDBController extends Controller
             'nama_lengkap' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:user_ppdbs'],
             'tahun_ajaran' => ['required', 'string'],
-            'nomor_handphone' => ['required', 'string', 'max:20'],
+            'nomor_handphone' => ['required', 'string', 'max:20', 'unique:user_ppdbs'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 

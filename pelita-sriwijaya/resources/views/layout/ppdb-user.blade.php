@@ -1,7 +1,4 @@
-@extends('layout.ppdb') {{-- Menggunakan layout PPDB Anda --}}
-
-@section('main-content')
-    <header class="bg-white shadow-md">
+<header class="bg-white shadow-md">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex-shrink-0">
@@ -87,4 +84,3 @@
                 </div>
         </div>
     </main>
-@endsection

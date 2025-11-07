@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('tahun_ajaran')->nullable();
             $table->string('nomor_handphone')->nullable();
             $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

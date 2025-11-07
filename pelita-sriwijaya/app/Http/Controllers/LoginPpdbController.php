@@ -18,7 +18,7 @@ class LoginPpdbController extends Controller
 
     public function showLoginForm()
     {
-        return view('page.ppdb.login-ppdb');
+        return view('page.ppdb.auth.login-ppdb');
     }
 
     public function login(Request $request)

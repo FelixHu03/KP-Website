@@ -16,16 +16,16 @@
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <a href="{{ route('page.ppdb.welcomePpdb') }}" class="flex items-center space-x-3">
                 <img src="{{ asset('assets/image/logo.png') }}" alt="Pelita Sriwijaya Logo" class="h-12 w-auto">
-                <span class="text-xl font-bold text-blue-800">PPDB PELITA SRIWIJAYA</span>
+                <span class="text-xl font-bold text-orange-600">PPDB PELITA SRIWIJAYA</span>
             </a>
 
             <div class="space-x-6 hidden md:flex">
                 <a href="{{ route('page.ppdb.welcomePpdb') }}"
-                    class="text-gray-700 hover:text-blue-600 font-semibold">Home</a>
-                <a href="{{ route('about') }}" class="text-gray-700 hover:text-blue-600 font-semibold">Info</a>
+                    class="text-gray-700 hover:text-orange-600 font-semibold">Home</a>
+                <a href="{{ route('about') }}" class="text-gray-700 hover:text-orange-600 font-semibold">Info</a>
                 <a href="{{ route('ppdb.register') }}"
-                    class="text-gray-700 hover:text-blue-600 font-semibold">Daftar</a>
-                <a href="{{ route('login') }}" class="text-gray-700 hover:text-blue-600 font-semibold">Login</a>
+                    class="text-gray-700 hover:text-orange-600 font-semibold">Daftar</a>
+                <a href="{{ route('login') }}" class="text-gray-700 hover:text-orange-600 font-semibold">Login</a>
             </div>
         </div>
     </nav>

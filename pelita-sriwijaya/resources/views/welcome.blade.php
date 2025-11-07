@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('main-content')
-    <div class="text-start flex flex-col items-center space-y-12 py-8">
+    <div class="text-start flex flex-col items-center space-y-10 py-8 ml-10 mr-10 ">
         <!-- Judul -->
         <h2 class="text-3xl text-center items-center font-bold text-orange-600">
             Welcome to Pelita Sriwijaya
@@ -36,31 +36,33 @@
                 }, 300)
             }
         }" class="w-full flex items-center justify-center relative">
-            <!-- Tombol Kiri -->
-            <button @click="prev"
-                class="absolute left-[5%] bg-white shadow-md rounded-full p-2 hover:bg-blue-100 transition z-10">
-                <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M15 18l-6-6 6-6"></path>
-                </svg>
-            </button>
+
 
             <!-- Container Gambar -->
-            <div class="w-3/4 flex justify-center">
+            <div class="w-full flex justify-center ">
+                <!-- Tombol Kiri -->
+                <button @click="prev"
+                    class="absolute left-[2%] top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full p-2 hover:bg-blue-100 transition z-10 opacity-60 ">
+                    <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 18l-6-6 6-6"></path>
+                    </svg>
+                </button>
                 <img :src="images[currentIndex]"
                     x-bind:class="transitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'"
-                    class="w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] xl:h-[400px] object-cover rounded-lg shadow-lg transition-all duration-300 ease-out"
+                    class="w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] xl:h-[600px] object-cover rounded-lg shadow-lg transition-all duration-300 ease-out"
                     alt="Slider Image" />
+
+                <!-- Tombol Kanan -->
+                <button @click="next"
+                    class="absolute right-[2%] top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full p-2 hover:bg-orange-100 transition z-10 opacity-60">
+                    <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 18l6-6-6-6"></path>
+                    </svg>
+                </button>
             </div>
 
-            <!-- Tombol Kanan -->
-            <button @click="next"
-                class="absolute right-[5%] bg-white shadow-md rounded-full p-2 hover:bg-orange-100 transition z-10">
-                <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" stroke-width="2"
-                    viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 18l6-6-6-6"></path>
-                </svg>
-            </button>
         </div>
         <!-- Logo Tingkat Sekolah -->
         <div x-data="{
@@ -85,7 +87,7 @@
 
 
         <!-- Deskripsi -->
-        <div class="text-lg m-3 text-start w-full ">
+        <div class="text-lg m-3 text-start w-full mt-">
             <h1 class="text-orange-600 font-bold text-2xl">Selamat Datang di Sekolah Pelita Sriwijaya</h1>
             <p class="mt-2.5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
                 labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut

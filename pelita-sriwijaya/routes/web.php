@@ -4,6 +4,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PpdbOnlineController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\LoginPpdbController;
+use App\Http\Controllers\PpdbForgotPasswordController;
+use App\Http\Controllers\ppdbResetPasswordController;
 use App\Http\Controllers\RegisterAccountPPDBController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +17,9 @@ Route::get('/kontak', function () {
 })->name('contact');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/about', [AboutController::class, 'index'])->name('about');
+
+
 Route::prefix('ppdb')->group(function () {
     // Redirect ke halaman welcome PPDB
     Route::get('/', function () {
@@ -25,6 +30,23 @@ Route::prefix('ppdb')->group(function () {
     Route::get('/welcome', function () {
         return view('page.ppdb.welcomePpdb');
     })->name('page.ppdb.welcomePpdb');
+
+    // Rute Lupa Password
+    Route::get('/forgot-password', [PpdbForgotPasswordController::class, 'showLinkRequestForm'])
+        ->middleware('guest:ppdb')
+        ->name('ppdb.password.request');
+
+    Route::post('/forgot-password', [PpdbForgotPasswordController::class, 'sendResetLinkEmail'])
+        ->middleware('guest:ppdb')
+        ->name('ppdb.password.email');
+
+    Route::get('/reset-password/{token}', [ppdbResetPasswordController::class, 'showResetForm'])
+        ->middleware('guest:ppdb')
+        ->name('ppdb.password.reset');
+
+    Route::post('/reset-password', [ppdbResetPasswordController::class, 'reset'])
+        ->middleware('guest:ppdb')
+        ->name('ppdb.password.update');
 
     Route::get('/login', [LoginPpdbController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginPpdbController::class, 'login'])->name('ppdb.login.submit');
@@ -38,5 +60,3 @@ Route::prefix('ppdb')->group(function () {
         Route::post('/logout', [LoginPpdbController::class, 'logout'])->name('logout');
     });
 });
-
-Route::get('/about', [AboutController::class, 'index'])->name('about');
