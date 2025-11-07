@@ -58,5 +58,7 @@ Route::prefix('ppdb')->group(function () {
         Route::get('/ppdb-online', [PpdbOnlineController::class, 'index'])->name('ppdb-online.index');
         Route::post('/ppdb-online', [PpdbOnlineController::class, 'store'])->name('ppdb-online.store');
         Route::post('/logout', [LoginPpdbController::class, 'logout'])->name('logout');
+        Route::get('/pendaftaran', [PpdbOnlineController::class, 'showPendaftaranPage'])->name('ppdb-online.pendaftaran');
+        Route::get('/formulir/{jenjang}', [PpdbOnlineController::class, 'showFormulir'])->name('ppdb-online.formulir');
     });
 });

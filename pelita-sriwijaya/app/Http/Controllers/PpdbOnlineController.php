@@ -15,6 +15,24 @@ class PpdbOnlineController extends Controller
         return view('page.ppdb.ppdb-online');
     }
 
+    public function showPendaftaranPage()
+    {
+        return view('page.ppdb.pendaftaranPpdb');
+    }
+    public function showFormulir(Request $request, string $jenjang) 
+    {
+        // Validasi sederhana agar URL-nya aman
+        $jenjang_valid = strtoupper($jenjang);
+        if (!in_array($jenjang_valid, ['TK', 'SD', 'SMP'])) {
+            // Jika jenjang tidak valid, kembalikan ke halaman pendaftaran
+            return redirect()->route('ppdb-online.pendaftaran'); 
+        }
+
+        // Kirim 'jenjang' ke view
+        return view('page.ppdb.formulir.formulir-ppdb', [
+            'jenjang_dipilih' => $jenjang_valid
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      */

@@ -1,4 +1,4 @@
-@extends('layout.ppdb') {{-- Menggunakan layout PPDB Anda --}}
+@extends('layout.ppdb-user') {{-- Menggunakan layout PPDB Anda --}}
 
 @section('main-content')
     <header class="bg-white shadow-md">
@@ -49,7 +49,7 @@
                             </div>
 
                             <div class="py-1" role="none">
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">
+                                <a href="{{ route('ppdb-online.pendaftaran') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">
                                     Isi Formulir
                                 </a>
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">
