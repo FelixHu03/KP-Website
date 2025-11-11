@@ -6,6 +6,7 @@ use App\Models\registerAccountPPDB;
 use App\Models\UserPpdb;
 use Illuminate\Validation\Rules;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterAccountPPDBController extends Controller
@@ -31,21 +32,24 @@ class RegisterAccountPPDBController extends Controller
         $request->validate([
             'nama_lengkap' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:user_ppdbs'],
-            'tahun_ajaran' => ['required', 'string'],
+            // 'tahun_ajaran' => ['required', 'string'],
             'nomor_handphone' => ['required', 'string', 'max:20', 'unique:user_ppdbs'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        UserPpdb::create([
-            'name' => $request->nama_lengkap,
+        $user = UserPpdb::create([
             'nama_lengkap' => $request->nama_lengkap,
             'email' => $request->email,
-            'tahun_ajaran' => $request->tahun_ajaran,
+            // 'tahun_ajaran' => $request->tahun_ajaran,
             'nomor_handphone' => $request->nomor_handphone,
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('login')->with('success', 'Pendaftaran akun berhasil. Silakan login.');
+        // Login-kan user secara otomatis
+        Auth::guard('ppdb')->login($user);
+
+        // Arahkan ke halaman pengisian data orang tua
+        return redirect()->route('ppdb.data-orangtua.create');
     }
 
     /**

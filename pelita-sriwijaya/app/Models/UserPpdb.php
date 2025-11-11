@@ -18,7 +18,7 @@ class UserPpdb extends Authenticatable
         'email',
         'nomor_handphone',
         'password',
-        'tahun_ajaran',
+        // 'tahun_ajaran',
     ];
 
     protected $hidden = [
@@ -30,5 +30,22 @@ class UserPpdb extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new PpdbResetPasswordNotification($token));
+    }
+    /**
+     * Relasi SATU-KE-SATU
+     * Satu Akun User memiliki satu profil Data Orang Tua.
+     */
+    public function dataOrangTua()
+    {
+        return $this->hasOne(DataOrangTua::class, 'user_ppdb_id');
+    }
+
+    /**
+     * Relasi SATU-KE-BANYAK
+     * Satu Akun User bisa mendaftarkan banyak siswa.
+     */
+    public function ppdbOnline()
+    {
+        return $this->hasMany(PpdbOnline::class, 'user_ppdb_id');
     }
 }

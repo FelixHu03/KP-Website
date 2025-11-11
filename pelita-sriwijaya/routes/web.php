@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PpdbOnlineController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\DataOrangTuaController;
 use App\Http\Controllers\LoginPpdbController;
 use App\Http\Controllers\PpdbForgotPasswordController;
 use App\Http\Controllers\ppdbResetPasswordController;
@@ -60,5 +61,8 @@ Route::prefix('ppdb')->group(function () {
         Route::post('/logout', [LoginPpdbController::class, 'logout'])->name('logout');
         Route::get('/pendaftaran', [PpdbOnlineController::class, 'showPendaftaranPage'])->name('ppdb-online.pendaftaran');
         Route::get('/formulir/{jenjang}', [PpdbOnlineController::class, 'showFormulir'])->name('ppdb-online.formulir');
+        // isi data orang tua
+        Route::get('/data-orangtua/isi', [DataOrangTuaController::class, 'create'])->name('ppdb.data-orangtua.create');
+        Route::post('/data-orangtua', [DataOrangTuaController::class, 'store'])->name('ppdb.data-orangtua.store');
     });
 });
