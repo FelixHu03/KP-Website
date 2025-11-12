@@ -11,14 +11,23 @@ class DataOrangTua extends Model
 
     protected $fillable = [
         'user_ppdb_id',
-        'nama_ayah', 'nik_ayah', 'tanggallahir_ayah', 'pendidikan_ayah', 'pekerjaan_ayah', 'penghasilan_ayah', 'hp_ayah',
-        'nama_ibu', 'nik_ibu', 'tanggallahir_ibu', 'pendidikan_ibu', 'pekerjaan_ibu', 'penghasilan_ibu', 'hp_ibu',
-        'alamat', 'sumber_informasi',
+        'nama_ayah',
+        'nik_ayah',
+        'tanggallahir_ayah',
+        'pendidikan_ayah',
+        'pekerjaan_ayah',
+        'penghasilan_ayah',
+        'hp_ayah',
+        'nama_ibu',
+        'nik_ibu',
+        'tanggallahir_ibu',
+        'pendidikan_ibu',
+        'pekerjaan_ibu',
+        'penghasilan_ibu',
+        'hp_ibu',
+        'alamat',
+        'sumber_informasi',
     ];
-
-    /**
-     * Relasi ke akun UserPpdb
-     */
     public function user()
     {
         return $this->belongsTo(UserPpdb::class, 'user_ppdb_id');

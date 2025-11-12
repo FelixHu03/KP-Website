@@ -64,5 +64,8 @@ Route::prefix('ppdb')->group(function () {
         // isi data orang tua
         Route::get('/data-orangtua/isi', [DataOrangTuaController::class, 'create'])->name('ppdb.data-orangtua.create');
         Route::post('/data-orangtua', [DataOrangTuaController::class, 'store'])->name('ppdb.data-orangtua.store');
+        Route::get('/data-orangtua/edit', [DataOrangTuaController::class, 'edit'])->name('ppdb.data-orangtua.edit');
+        // update data orang tua
+        Route::post('/data-orangtua/update', [DataOrangTuaController::class, 'update'])->name('ppdb.data-orangtua.update');
     });
 });

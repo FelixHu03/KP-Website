@@ -31,10 +31,7 @@ class UserPpdb extends Authenticatable
     {
         $this->notify(new PpdbResetPasswordNotification($token));
     }
-    /**
-     * Relasi SATU-KE-SATU
-     * Satu Akun User memiliki satu profil Data Orang Tua.
-     */
+    
     public function dataOrangTua()
     {
         return $this->hasOne(DataOrangTua::class, 'user_ppdb_id');
