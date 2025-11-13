@@ -10,6 +10,7 @@ class DataOrangTua extends Model
     use HasFactory;
 
     protected $fillable = [
+        'nik_keluarga',
         'user_ppdb_id',
         'nama_ayah',
         'nik_ayah',

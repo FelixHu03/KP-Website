@@ -8,16 +8,7 @@
             <form action="{{ route('ppdb.register.submit') }}" method="POST" class="space-y-5">
                 @csrf
 
-                <!-- Tahun Ajaran -->
-                {{-- <div>
-                    <label for="tahun_ajaran" class="block text-sm font-semibold text-gray-700 mb-1">Tahun Ajaran <span
-                            class="text-red-500">*</span></label>
-                    <select id="tahun_ajaran" name="tahun_ajaran" required
-                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none">
-                        <option value="">- Pilih Tahun Ajaran -</option>
-                        <option value="2025/2026">2025/2026</option>
-                    </select>
-                </div> --}}
+                
 
                 <!-- Nama Lengkap -->
                 <div>

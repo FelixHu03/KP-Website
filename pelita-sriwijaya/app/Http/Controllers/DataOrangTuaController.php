@@ -62,25 +62,40 @@ class DataOrangTuaController extends Controller
     // Fungsi validasi data
     private function validateData(Request $request)
     {
-        return $request->validate([
+        // 1. Tentukan Aturan Validasi
+        $rules = [
+            'nik_keluarga' => 'required|string |digits:16',
             'nama_ayah' => 'required|string|max:255',
-            'nik_ayah' => 'required|string|max:16',
+            'nik_ayah' => 'required|string|digits:16', // Menggunakan 'digits:16' (16 digit persis)
             'tanggallahir_ayah' => 'required|date',
             'pendidikan_ayah' => 'required|string',
             'pekerjaan_ayah' => 'required|string|max:255',
             'penghasilan_ayah' => 'required|string',
-            'hp_ayah' => 'required|string|max:13',
+            'hp_ayah' => 'required|string|digits_between:10,13', 
 
             'nama_ibu' => 'required|string|max:255',
-            'nik_ibu' => 'required|string|max:16',
+            'nik_ibu' => 'required|string|digits:16', // Menggunakan 'digits:16'
             'tanggallahir_ibu' => 'required|date',
             'pendidikan_ibu' => 'required|string',
             'pekerjaan_ibu' => 'required|string|max:255',
             'penghasilan_ibu' => 'required|string',
-            'hp_ibu' => 'required|string|max:13',
+            'hp_ibu' => 'required|string|digits_between:10,13',
 
             'alamat' => 'required|string',
             'sumber_informasi' => 'required|string',
-        ]);
+            
+        ];
+
+        // 2. Tentukan Pesan Error Kustom
+        $messages = [
+            'nik_ayah.digits' => 'Nomor NIK harus 16 digit.',
+            'nik_ibu.digits' => 'Nomor NIK harus 16 digit.',
+            
+            'hp_ayah.digits_between' => 'Nomor Handphone harus 10 sampai 13 digit.',
+            'hp_ibu.digits_between' => 'Nomor Handphone harus 10 sampai 13 digit.',
+        ];
+
+        // 3. Jalankan Validasi
+        return $request->validate($rules, $messages);
     }
 }

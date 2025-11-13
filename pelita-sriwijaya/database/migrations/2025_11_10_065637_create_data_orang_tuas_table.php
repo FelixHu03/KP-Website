@@ -9,11 +9,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('data_orang_tuas', function (Blueprint $table) {
-            $table->id(); // Ini akan menjadi 'id_keluarga' Anda
+            $table->id(); // 'id_keluarga'
 
             // Kunci penghubung ke akun user
             $table->foreignId('user_ppdb_id')->constrained('user_ppdbs')->onDelete('cascade');
-
+            $table->string('nik_keluarga');
             // Data Ayah
             $table->string('nama_ayah');
             $table->string('nik_ayah');

@@ -16,11 +16,10 @@ return new class extends Migration
             
             // Data Jenjang
             $table->string('jenjang_dipilih'); // TK, SD, SMP
-
+            $table->string('tahun_ajaran');
             // Data Anak
             $table->string('namalengkap');
             $table->string('namapanggilan');
-            $table->string('nomor_kartu_keluarga');
             $table->string('nik')->unique(); 
             $table->string('tempatlahir');
             $table->date('tanggallahir');

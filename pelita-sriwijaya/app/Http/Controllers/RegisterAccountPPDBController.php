@@ -33,7 +33,7 @@ class RegisterAccountPPDBController extends Controller
             'nama_lengkap' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:user_ppdbs'],
             // 'tahun_ajaran' => ['required', 'string'],
-            'nomor_handphone' => ['required', 'string', 'max:20', 'unique:user_ppdbs'],
+            'nomor_handphone' => ['required', 'string', 'min:11', 'max:13', 'unique:user_ppdbs'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 

@@ -50,9 +50,9 @@ class PpdbOnlineController extends Controller
         // 1. Validasi data anak (dari step 1 formulir)
         $validated = $request->validate([
             'jenjang_dipilih' => 'required|string',
+            'tahun_ajaran' => 'required|string',
             'namalengkap' => 'required|string|max:255',
             'namapanggilan' => 'required|string|max:255',
-            'nomor_kartu_keluarga' => 'required|string',
             'nik' => 'required|string|unique:ppdb_onlines,nik',
             'tempatlahir' => 'required|string',
             'tanggallahir' => 'required|date',

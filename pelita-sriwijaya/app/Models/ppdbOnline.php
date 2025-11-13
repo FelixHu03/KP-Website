@@ -21,9 +21,9 @@ class ppdbOnline extends Model
     protected $fillable = [
         'user_ppdb_id', // Kunci penghubung ke orang tua
         'jenjang_dipilih',
+        'tahun_ajaran',
         'namalengkap',
         'namapanggilan',
-        'nomor_kartu_keluarga',
         'nik',
         'tempatlahir',
         'tanggallahir',
