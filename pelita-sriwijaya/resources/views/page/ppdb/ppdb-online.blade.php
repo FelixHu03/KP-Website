@@ -51,7 +51,7 @@
                     <p class="mt-1 text-gray-600">Perbarui data keluarga, alamat, dan kontak Anda.</p>
                 </a>
 
-                <a href="#" {{-- Ganti '#' dengan rute Anda nanti --}}
+                <a href="{{ route('ppdb.riwayat.index') }}" {{-- Ganti '#' dengan rute Anda nanti --}}
                    class="block p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1">
                     
                     <div class="flex items-center justify-center h-12 w-12 rounded-full bg-green-100">

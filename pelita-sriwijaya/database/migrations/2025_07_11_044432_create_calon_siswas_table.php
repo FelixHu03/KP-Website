@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('ppdb_onlines', function (Blueprint $table) {
+        Schema::create('calon_siswas', function (Blueprint $table) {
             $table->id();
 
             // Kunci penghubung ke Akun Orang Tua (UserPpdb)
@@ -26,14 +26,13 @@ return new class extends Migration
             $table->string('jenis_kelamin');
             $table->string('vegetarian');
             $table->string('handphone');
-
             // Data Khusus SD & SMP
             $table->string('asalsekolah')->nullable();
             $table->string('nins')->nullable();
             
             // Data Khusus SMP
             $table->string('nilai_ijazah')->nullable();
-            $table->string('foto_raport')->nullable(); 
+
 
             $table->timestamps();
         });

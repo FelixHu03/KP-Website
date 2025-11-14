@@ -41,8 +41,8 @@ class UserPpdb extends Authenticatable
      * Relasi SATU-KE-BANYAK
      * Satu Akun User bisa mendaftarkan banyak siswa.
      */
-    public function ppdbOnline()
+    public function calonSiswas()
     {
-        return $this->hasMany(PpdbOnline::class, 'user_ppdb_id');
+        return $this->hasMany(CalonSiswa::class, 'user_ppdb_id');
     }
 }

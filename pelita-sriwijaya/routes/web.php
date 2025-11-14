@@ -67,5 +67,10 @@ Route::prefix('ppdb')->group(function () {
         Route::get('/data-orangtua/edit', [DataOrangTuaController::class, 'edit'])->name('ppdb.data-orangtua.edit');
         // update data orang tua
         Route::post('/data-orangtua/update', [DataOrangTuaController::class, 'update'])->name('ppdb.data-orangtua.update');
+        // riwayat pendaftaran
+        Route::get('/ppdb/riwayat', [PpdbOnlineController::class, 'showRiwayat'])
+            ->name('ppdb.riwayat.index');
+        Route::get('/ppdb/riwayat/{id}', [PpdbOnlineController::class, 'showDetailRiwayat'])
+            ->name('ppdb.riwayat.detail');
     });
 });

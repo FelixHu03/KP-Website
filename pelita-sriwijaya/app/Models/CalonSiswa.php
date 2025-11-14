@@ -4,15 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class ppdbOnline extends Model
+class CalonSiswa extends Model
 {
     use HasFactory;
 
     /**
      * Tentukan nama tabel jika tidak jamak (opsional tapi bagus).
      */
-    protected $table = 'ppdb_onlines';
+    protected $table = 'calon_siswas';
 
     /**
      * Kolom-kolom yang boleh diisi secara massal (Mass Assignable).
@@ -31,9 +32,8 @@ class ppdbOnline extends Model
         'vegetarian',
         'handphone',
         'asalsekolah',
-        'nins',
-        'nilai_ijazah',
-        'foto_raport',
+        'nins', // khusus SMP
+        'nilai_ijazah', // khusus SMP
     ];
 
     /**
@@ -42,5 +42,13 @@ class ppdbOnline extends Model
     public function user()
     {
         return $this->belongsTo(UserPpdb::class, 'user_ppdb_id');
+    }
+    /**
+     * Relasi ke DokumenCalonSiswa
+     */
+    public function dokumen(): HasMany
+    {
+        // Pastikan Anda punya Model DokumenCalonSiswa
+        return $this->hasMany(DokumenCalonSiswa::class, 'calon_siswa_id');
     }
 }
