@@ -24,7 +24,24 @@
             <form x-data="{ jenjang: '{{ $jenjang_dipilih }}' }" x-ref="form" method="POST" action="{{ route('ppdb-online.store') }}"
                 class="mt-6" enctype="multipart/form-data">
                 @csrf
+                @if ($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Pendaftaran Gagal!</strong>
+                        <ul style="margin-bottom: 0;">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
+                    {{-- menampilkan pesan error spesifik --}}
+                @if (session('file_upload_error'))
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Pendaftaran Gagal!</strong>
+                        <p>{{ session('file_upload_error') }}</p>
+                    </div>
+                @endif
                 <input type="hidden" name="jenjang_dipilih" :value="jenjang">
 
                 {{-- Pemberitahuan (Selalu terlihat di semua langkah) --}}

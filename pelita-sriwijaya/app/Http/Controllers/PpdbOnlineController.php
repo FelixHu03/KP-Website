@@ -10,10 +10,9 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Str;
-
-
 use Exception;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
 
 class PpdbOnlineController extends Controller
 {
@@ -89,7 +88,14 @@ class PpdbOnlineController extends Controller
             'tahun_ajaran' => 'required|string',
             'namalengkap' => 'required|string|max:255',
             'namapanggilan' => 'required|string|max:255',
-            'nik' => 'required|string|unique:calon_siswas,nik',
+            // 'nik' => 'required|string|unique:calon_siswas,nik', // Validasi NIK unik mungkin terlalu ketat jika mendaftar 2 anak
+            'nik' => [
+                'required',
+                'string',
+                Rule::unique('calon_siswas')->where(function ($query) use ($request) {
+                    return $query->where('jenjang_dipilih', $request->jenjang_dipilih);
+                })
+            ],
             'tempatlahir' => 'required|string',
             'tanggallahir' => 'required|date',
             'jenis_kelamin' => 'required|string',
@@ -98,8 +104,8 @@ class PpdbOnlineController extends Controller
             'akta_kelahiran' => 'required|file|mimes:jpg,png,jpeg,pdf|max:2048',
             'foto_raport'   => 'required_if:jenjang_dipilih,SMP|file|mimes:jpg,png,jpeg,pdf|max:2048',
             'asalsekolah'   => 'required_if:jenjang_dipilih,SD,SMP|nullable|string',
-            'nins'          => 'required_if:jenjang_dipilih,SMP|nullable|string',
-            'nilai_ijazah'  => 'required_if:jenjang_dipilih,SMP|nullable|numeric',
+            'nins'          => 'required_if:jenjang_dipilih,SMP|nullable|string|max:10',
+            'nilai_ijazah'  => 'required_if:jenjang_dipilih,SMP|nullable|numeric|between:0,100',
             'konfirmasi_data_ortu' => 'required',
         ]);
 
@@ -108,26 +114,53 @@ class PpdbOnlineController extends Controller
         $aktaFile  = $request->file('akta_kelahiran');
         $raportFile = $request->file('foto_raport');
 
-        unset($validated['akta_kelahiran'], $validated['foto_raport']);
+        // Hapus kunci file dan konfirmasi dari data yang akan disimpan ke DB CalonSiswa
+        unset($validated['akta_kelahiran'], $validated['foto_raport'], $validated['konfirmasi_data_ortu']);
 
-        // Variabel $calonSiswa kita deklarasikan di luar try
         $calonSiswa = null;
+        $finalBasePath = null; // Deklarasikan di luar try agar bisa diakses di catch
 
-        try { // <-- MULAI TRY DI SINI
+        try {
 
+            // 1. BUAT INSTANCE SISWA
             $calonSiswa = CalonSiswa::create($validated);
             $studentId = $calonSiswa->id;
-
+            
+            // 2. TENTUKAN PATH DASAR DAN SLUG
             $manager = new ImageManager(new Driver());
             $jenjang = strtolower($validated['jenjang_dipilih']);
-            $namaSlug = Str::slug($validated['namalengkap'], '_');
-            $basePath = "dokumen_siswa/{$jenjang}/{$studentId}";
+            $tahunAjaranAsli = $validated['tahun_ajaran'];
+            $tahunAjaranFolder = str_replace('/', '-', $tahunAjaranAsli);
+            $baseNamaSlug = Str::slug($validated['namalengkap'], '_'); // 'felix'
+            
+            // Path dasar tempat folder jenjang berada
+            $baseStoragePath = "dokumen_siswa/{$tahunAjaranFolder}/{$jenjang}"; // HASIL: 'dokumen_siswa/2025-2026/sd'
 
-            $saveFile = function ($file, $jenisDokumen) use ($manager, $basePath, $namaSlug) {
+            // 3. LOGIKA BARU: TENTUKAN NAMA FOLDER UNIK
+            $counter = 0;
+            $finalNamaSlug = $baseNamaSlug; // 'felix'
+            $finalBasePath = "{$baseStoragePath}/{$finalNamaSlug}"; // 'dokumen_siswa/2025-2026/sd/felix'
+
+            // Loop untuk mengecek apakah DIREKTORI ini sudah ada
+            while (Storage::disk('public')->exists($finalBasePath)) {
+                $counter++;
+                $finalNamaSlug = "{$baseNamaSlug}_{$counter}"; // 'felix_1'
+                $finalBasePath = "{$baseStoragePath}/{$finalNamaSlug}"; // 'dokumen_siswa/2025-2026/sd/felix_1'
+            }
+            // $finalBasePath sekarang berisi path folder unik untuk siswa ini.
+            // $finalNamaSlug berisi slug unik (e.g., 'felix' or 'felix_1')
+
+            // 4. FUNGSI UNTUK MENYIMPAN FILE 
+            $saveFile = function ($file, $jenisDokumen) use ($manager, $finalBasePath, $finalNamaSlug) {
                 $ext  = strtolower($file->getClientOriginalExtension());
                 $isPdf = ($ext === 'pdf');
-                $finalName = $jenisDokumen . '_' . $namaSlug . '.' . ($isPdf ? 'pdf' : 'jpg');
-                $path = "{$basePath}/{$finalName}";
+                $fileExt = ($isPdf ? 'pdf' : 'jpg');
+                
+                // Buat nama file menggunakan slug unik dari folder
+                $finalName = "{$jenisDokumen}_{$finalNamaSlug}.{$fileExt}"; // 'akta_kelahiran_felix_1.jpg'
+                
+                // Path lengkap ke file
+                $path = "{$finalBasePath}/{$finalName}"; //'dokumen_siswa/.../felix_1/akta_kelahiran_felix_1.jpg'
 
                 if ($isPdf) {
                     Storage::disk('public')->put($path, file_get_contents($file));
@@ -137,10 +170,10 @@ class PpdbOnlineController extends Controller
                     $encoded = $image->toJpeg(85);
                     Storage::disk('public')->put($path, (string)$encoded);
                 }
-                return $path;
+                return $path; // Path ini yang disimpan di DB
             };
 
-            // Proses Akta Kelahiran
+            // 5. PROSES AKTA KELAHIRAN
             if ($aktaFile) {
                 $pathAkta = $saveFile($aktaFile, "akta_kelahiran");
 
@@ -154,7 +187,7 @@ class PpdbOnlineController extends Controller
                 ]);
             }
 
-            // Proses Foto Raport
+            // 6. PROSES FOTO RAPORT
             if ($raportFile) {
                 $pathRaport = $saveFile($raportFile, "foto_raport");
 
@@ -167,23 +200,30 @@ class PpdbOnlineController extends Controller
                     'status_verifikasi' => 'Diunggah',
                 ]);
             }
-        } catch (Exception $e) { // <-- TANGKAP ERROR DI SINI
+        } catch (Exception $e) {
 
-            // Jika siswa telanjur dibuat, hapus lagi (rollback)
+            // ROLLBACK JIKA GAGAL
             if ($calonSiswa) {
+                // Hapus dokumen dari database
+                $calonSiswa->dokumen()->delete();
+                
+                // Hapus folder unik siswa yang baru dibuat (jika sudah terbuat)
+                if ($finalBasePath && Storage::disk('public')->exists($finalBasePath)) {
+                    Storage::disk('public')->deleteDirectory($finalBasePath);
+                }
+                
+                // Hapus data siswa
                 $calonSiswa->delete();
             }
 
-            // Catat error di log server
             Log::error('Gagal mendaftar siswa: ' . $e->getMessage() . ' di baris ' . $e->getLine());
 
-            // Kembalikan ke formulir DENGAN PESAN ERROR
             return back()->withInput()->withErrors([
-                'file_upload' => 'Terjadi kesalahan saat memproses file Anda. Pesan Error: ' . $e->getMessage()
+                'file_upload' => 'Terjadi kesalahan saat memproses file Anda. Pesan Error: B' . $e->getMessage()
             ]);
         }
 
-        // Jika BERHASIL (tidak ada error), baru redirect
+        // Jika BERHASIL
         return redirect()
             ->route('ppdb-online.index')
             ->with('success', 'Data anak dan dokumen berhasil didaftarkan!');

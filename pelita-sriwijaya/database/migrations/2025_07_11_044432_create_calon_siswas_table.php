@@ -20,7 +20,7 @@ return new class extends Migration
             // Data Anak
             $table->string('namalengkap');
             $table->string('namapanggilan');
-            $table->string('nik')->unique(); 
+            $table->string('nik'); 
             $table->string('tempatlahir');
             $table->date('tanggallahir');
             $table->string('jenis_kelamin');
@@ -32,6 +32,8 @@ return new class extends Migration
             
             // Data Khusus SMP
             $table->string('nilai_ijazah')->nullable();
+
+            $table->unique(['nik', 'jenjang_dipilih']);
 
 
             $table->timestamps();
