@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
-class ppdbResetPasswordController extends Controller
+class PpdbResetPasswordController extends Controller
 {
     public function showResetForm(Request $request, $token = null)
     {
