@@ -15,10 +15,6 @@ class CalonSiswa extends Model
      */
     protected $table = 'calon_siswas';
 
-    /**
-     * Kolom-kolom yang boleh diisi secara massal (Mass Assignable).
-     * INI ADALAH BAGIAN YANG MEMPERBAIKI ERROR ANDA.
-     */
     protected $fillable = [
         'user_ppdb_id', // Kunci penghubung ke orang tua
         'jenjang_dipilih',
