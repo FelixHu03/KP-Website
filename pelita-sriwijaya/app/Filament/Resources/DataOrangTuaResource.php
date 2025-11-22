@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\DataOrangTuaResource\Pages;
 use App\Models\DataOrangTua;
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -11,9 +12,17 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Columns\Column;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class DataOrangTuaResource extends Resource
 {
@@ -33,7 +42,7 @@ class DataOrangTuaResource extends Resource
                 Section::make('Informasi Akun')
                     ->schema([
                         Select::make('user_ppdb_id')
-                            ->relationship('user', 'name')
+                            ->relationship('user', 'nama_lengkap')
                             ->label('Akun Orang Tua')
                             ->searchable()
                             ->required(),
@@ -80,6 +89,16 @@ class DataOrangTuaResource extends Resource
                         TextInput::make('sumber_informasi')
                             ->label('Tahu sekolah dari mana?'),
                     ]),
+                Section::make('Dokumen Kartu Keluarga')
+                    ->schema([
+                        FileUpload::make('kartukeluarga')
+                            ->label('File Kartu Keluarga')
+                            ->disk('public')
+                            ->acceptedFileTypes(['image/*', 'application/pdf'])
+                            ->openable()
+                            ->downloadable()
+                            ->columnSpanFull(),
+                    ]),
             ]);
     }
 
@@ -89,7 +108,6 @@ class DataOrangTuaResource extends Resource
             ->modifyQueryUsing(fn($query) => $query->with(['user']))
 
             ->columns([
-                // Menampilkan nama akun UserPpdb pemilik data ini
                 TextColumn::make('user.nama_lengkap')
                     ->label('Akun Pendaftar')
                     ->searchable()
@@ -116,8 +134,50 @@ class DataOrangTuaResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                // Anda bisa menambahkan filter di sini nanti
+            ->filters([])
+            ->headerActions([
+                ExportAction::make()->label('Export Semua Data')
+                    ->exports([
+                        ExcelExport::make()
+                            ->withFilename('Data_Lengkap_Data_Orang_Tua_' . date('Y-m-d'))
+                            ->withColumns([
+                                Column::make('nik_keluarga')->heading('No. Karta Keluarga')->format(NumberFormat::FORMAT_NUMBER_0),
+                                // Data Ayah
+                                Column::make('nama_ayah')->heading('Nama Ayah'),
+
+                                Column::make('nik_ayah')->heading('NIK Ayah')->format(NumberFormat::FORMAT_NUMBER_0),
+
+                                Column::make('tanggallahir_ayah')
+                                    ->heading('Tanggal Lahir Ayah')
+                                    ->formatStateUsing(fn($state) => Carbon::parse($state)->format('d-m-Y')),
+
+
+                                Column::make('pendidikan_ayah')->heading('Pendidikan Ayah'),
+
+                                Column::make('pekerjaan_ayah')->heading('Pekerjaan Ayah'),
+
+                                Column::make('penghasilan_ayah')->heading('Penghasilan Ayah'),
+
+                                Column::make('hp_ayah')->heading('No HP Ayah'),
+
+                                // Data Ibu
+                                Column::make('nama_ibu')->heading('Nama Ibu'),
+
+                                Column::make('nik_ibu')->heading('NIK Ibu')->format(NumberFormat::FORMAT_NUMBER_0),
+
+                                Column::make('tanggallahir_ibu')
+                                    ->heading('Tanggal Lahir Ibu')
+                                    ->formatStateUsing(fn($state) => Carbon::parse($state)->format('d-m-Y')),
+
+
+                                Column::make('pendidikan_ibu')->heading('Pendidikan Ibu'),
+                                Column::make('pekerjaan_ibu')->heading('Pekerjaan Ibu'),
+
+                                Column::make('penghasilan_ibu')->heading('Penghasilan Ibu'),
+
+                                Column::make('hp_ibu')->heading('No HP Ibu'),
+                            ])
+                    ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -126,6 +186,7 @@ class DataOrangTuaResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    ExportBulkAction::make()->label('Export Yang Dipilih'),
                 ]),
             ]);
     }

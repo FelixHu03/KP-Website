@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CalonSiswaResource\Pages;
 use App\Models\CalonSiswa;
 use App\Filament\Resources\DataOrangTuaResource;
+use BcMath\Number;
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,9 +15,9 @@ use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Section; // Gunakan Section dari Forms
-use Filament\Forms\Components\Repeater; // Tambahan untuk dokumen
-use Filament\Forms\Components\FileUpload; // Tambahan untuk gambar
+use Filament\Forms\Components\Section; 
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
@@ -23,7 +25,9 @@ use Filament\Tables\Columns\TextColumn;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
 use Filament\Tables\Filters\SelectFilter;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Columns\Column;
 
 class CalonSiswaResource extends Resource
 {
@@ -69,7 +73,6 @@ class CalonSiswaResource extends Resource
                                 FileUpload::make('path_penyimpanan')
                                     ->label('File / Gambar')
                                     ->disk('public')
-                                    // ->image() // Hapus ini jika file bisa berupa PDF
                                     ->acceptedFileTypes(['image/*', 'application/pdf']) // Gunakan ini agar PDF juga bisa masuk/tampil
                                     ->openable()
                                     ->downloadable()
@@ -99,7 +102,7 @@ class CalonSiswaResource extends Resource
                     ->url(function ($record) {
                         $dataOrangTua = $record->user->dataOrangTua ?? null;
                         return $dataOrangTua ? DataOrangTuaResource::getUrl('edit', ['record' => $dataOrangTua->id]) : null;
-                    }, true), // true = open in new tab agar tidak hilang dari list
+                    }, true), // true = open tab baru
 
                 TextColumn::make('namalengkap')->label('Nama Siswa')->searchable()->sortable(),
                 TextColumn::make('nik')->label('NIK')->searchable(),
@@ -117,7 +120,33 @@ class CalonSiswaResource extends Resource
             ])
             ->headerActions([
                 ExportAction::make()->label('Export Semua Data')
-                    ->exports([ExcelExport::make()->fromTable()->withFilename('Data_Calon_Siswa')]),
+                    ->exports([
+                        ExcelExport::make()
+                            ->withFilename('Data_Lengkap_Calon_Siswa_' . date('Y-m-d'))
+                            ->withColumns([
+                                Column::make('namalengkap')->heading('Nama Lengkap'),
+
+                                Column::make('jenjang_dipilih')->heading('Jenjang Sekolah'),
+
+                                Column::make('tanggallahir')
+                                    ->heading('Tanggal Lahir')
+                                    ->formatStateUsing(fn($state) => Carbon::parse($state)->format('d-m-Y')),
+
+                                Column::make('tahun_ajaran')->heading('Tahun Ajaran'),
+
+                                Column::make('nik')->heading('NIK')->format(NumberFormat::FORMAT_NUMBER_0),
+
+                                Column::make('vegetarian')->heading('Vegetarian'),
+
+                                Column::make('handphone')->heading('Nomor Handphone'),
+
+                                Column::make('asalsekolah')->heading('Asal Sekolah'),
+
+                                Column::make('nins')->heading('NISN'),
+
+                                Column::make('nilai_ijazah')->heading('Nilai Ijazah'),
+                            ])
+                    ]),
             ])
             ->actions([
                 EditAction::make(),

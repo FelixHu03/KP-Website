@@ -4,7 +4,7 @@
     <div class="bg-gray-50 shadow-md rounded-lg p-6">
         <div class="max-w-4xl mx-auto">
 
-            <form method="POST" action="{{ route('ppdb.data-orangtua.store') }}" class="mt-6">
+            <form method="POST" action="{{ route('ppdb.data-orangtua.store') }}" class="mt-6" enctype="multipart/form-data">
                 @csrf
                 @if ($errors->any())
                     <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6">
@@ -32,6 +32,14 @@
                         @error('nik_keluarga')
                             <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
                         @enderror
+                    </div>
+
+                    <div class="flex flex-col md:flex-row items-start gap-4">
+                        <label for="kartukeluarga" class="md:w-48 font-medium text-lg leading-tight">
+                            Kartu Keluarga<span class="text-red-500">*</span>
+                        </label>
+                        <input type="file" id="kartukeluarga" name="kartukeluarga" required
+                            class="w-full text-lg file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
                     </div>
 
                     <h2 class="text-2xl font-semibold text-orange-600 border-b pb-2">Data Ayah</h2>

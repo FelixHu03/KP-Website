@@ -14,6 +14,7 @@ return new class extends Migration
             // Kunci penghubung ke akun user
             $table->foreignId('user_ppdb_id')->constrained('user_ppdbs')->onDelete('cascade');
             $table->string('nik_keluarga');
+            $table->string('kartukeluarga')->nullable();
             // Data Ayah
             $table->string('nama_ayah');
             $table->string('nik_ayah');

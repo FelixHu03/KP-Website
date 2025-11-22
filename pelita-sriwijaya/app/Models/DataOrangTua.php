@@ -27,6 +27,7 @@ class DataOrangTua extends Model
         'penghasilan_ibu',
         'hp_ibu',
         'alamat',
+        'kartukeluarga',
         'sumber_informasi',
     ];
     public function user()

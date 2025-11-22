@@ -23,14 +23,14 @@
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
                             @endforeach
-                            </ul>
-                        </div>
+                        </ul>
+                    </div>
                 @endif
 
                 @if (session('success'))
                     <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6">
                         <p class="font-bold">{{ session('success') }}</p>
-                        </div>
+                    </div>
                 @endif
 
                 <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-6">
@@ -50,6 +50,31 @@
                         @error('nik_keluarga')
                             <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
                         @enderror
+                    </div>
+
+                    <div class="flex flex-col md:flex-row items-start gap-4">
+                        <label for="kartukeluarga" class="md:w-48 font-medium text-lg leading-tight">
+                            Kartu Keluarga <br>
+                            <span class="text-sm text-gray-500 font-normal">(Biarkan kosong jika tidak diubah)</span>
+                        </label>
+
+                        <div class="w-full">
+                            @if ($dataOrangTua->kartukeluarga)
+                                <div class="mb-2 text-sm text-blue-600">
+                                    <a href="{{ asset('storage/' . $dataOrangTua->kartukeluarga) }}" target="_blank"
+                                        class="underline hover:text-blue-800">
+                                        Lihat Kartu Keluarga Saat Ini
+                                    </a>
+                                </div>
+                            @endif
+
+                            <input type="file" id="kartukeluarga" name="kartukeluarga" accept=".jpg,.jpeg,.png,.pdf"
+                                class="w-full text-lg file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+
+                            @error('kartukeluarga')
+                                <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
 
                     <h2 class="text-2xl font-semibold text-orange-600 border-b pb-2">Data Ayah</h2>
@@ -118,7 +143,8 @@
 
                     {{-- HP Ayah --}}
                     <div class="flex flex-col md:flex-row items-start gap-4">
-                        <label for="hp_ayah" class="md:w-48 ...">Nomor HP Ayah <span class="text-red-500">*</span></label>
+                        <label for="hp_ayah" class="md:w-48 ...">Nomor HP Ayah <span
+                                class="text-red-500">*</span></label>
                         <input type="tel" id="hp_ayah" name="hp_ayah" required
                             value="{{ old('hp_ayah', $dataOrangTua->hp_ayah) }}" class="w-full ...">
                         @error('hp_ayah')
