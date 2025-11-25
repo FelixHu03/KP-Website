@@ -161,80 +161,146 @@
                         {{-- untuk berita --}}
                         <div x-show="activeTab === 'berita'" class="space-y-6">
 
-                            <a href="#" class="flex space-x-4 group">
-                                <div class="flex-shrink-0 w-28 h-20 bg-gray-200 rounded-md">
-                                </div>
-                                <div class="flex-grow">
-                                    <p class="text-sm text-gray-500">Oktober 25, 2025</p>
-                                    <h3 class="font-bold text-lg text-gray-900 group-hover:text-orange-600">
-                                        Prestasi yang Telah di Capai Oleh XYZ di Palembang 2025
-                                    </h3>
-                                    <p class="text-base text-gray-700 leading-snug mt-1 line-clamp-2">
-                                        daksmdkamskdmaskdmakmsdkmaskdmasmkdmkasmlkdnlasm adasdsotmakmsdkamsdkmas
-                                    </p>
-                                </div>
-                            </a>
+                            @foreach ($berita as $item)
+                                <a href="#" class="flex space-x-4 group">
+                                    {{-- KOTAK GAMBAR --}}
+                                    <div class="flex-shrink-0 w-28 h-20 bg-gray-200 rounded-md overflow-hidden">
+                                        {{-- Cek apakah ada gambar, jika tidak pakai gambar default --}}
+                                        @if ($item->gambar_thumbnail)
+                                            <img src="{{ asset('storage/' . $item->gambar_thumbnail) }}"
+                                                class="w-full h-full object-cover transition duration-300 group-hover:scale-110"
+                                                alt="{{ $item->judul }}">
+                                        @else
+                                            <img src="{{ asset('assets/image/logo.png') }}"
+                                                class="w-full h-full object-contain p-2 opacity-50" alt="No Image">
+                                        @endif
+                                    </div>
 
-                            <a href="#" class="flex space-x-4 group">
-                                <div class="flex-shrink-0 w-28 h-20 bg-gray-200 rounded-md"></div>
-                                <div class="flex-grow">
-                                    <p class="text-sm text-gray-500">Oktober 24, 2025</p>
-                                    <h3 class="font-bold text-lg text-gray-900 group-hover:text-orange-600">
-                                        Berita Sekolah Mengenai Acara 17 Agustus
-                                    </h3>
-                                    <p class="text-base text-gray-700 leading-snug mt-1 line-clamp-2">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua.
-                                    </p>
-                                </div>
-                            </a>
+                                    {{-- KONTEN TEKS --}}
+                                    <div class="flex-grow">
+                                        <p class="text-sm text-gray-500">
+                                            {{ \Carbon\Carbon::parse($item->tanggal_publish)->translatedFormat('d F Y') }}
+                                        </p>
+                                        <h3
+                                            class="font-bold text-lg text-gray-900 group-hover:text-orange-600 line-clamp-2">
+                                            {{ $item->judul }}
+                                        </h3>
+                                        <p class="text-base text-gray-700 leading-snug mt-1 line-clamp-2">
+                                            {{ $item->konten_singkat ?? Str::limit(strip_tags($item->isi_konten), 100) }}
+                                        </p>
+                                    </div>
+                                </a>
+                            @endforeach
 
-                            <a href="#" class="flex space-x-4 group">
-                                <div class="flex-shrink-0 w-28 h-20 bg-gray-200 rounded-md"></div>
-                                <div class="flex-grow">
-                                    <p class="text-sm text-gray-500">Oktober 23, 2025</p>
-                                    <h3 class="font-bold text-lg text-gray-900 group-hover:text-orange-600">
-                                        Pembukaan Pendaftaran Siswa Baru Tahun Ajaran 2026
-                                    </h3>
-                                    <p class="text-base text-gray-700 leading-snug mt-1 line-clamp-2">
-                                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                                        ex ea commodo consequat.
-                                    </p>
+                            {{-- Pesan jika data kosong --}}
+                            @if ($berita->isEmpty())
+                                <div class="text-center py-10 text-gray-500">
+                                    Belum ada berita terbaru.
                                 </div>
-                            </a>
+                            @endif
 
                         </div>
                         {{-- untuk prestasi --}}
                         <div x-show="activeTab === 'prestasi'" class="space-y-6">
-                            <a href="#" class="flex space-x-4 group">
-                                <div class="flex-shrink-0 w-28 h-20 bg-gray-200 rounded-md"></div>
-                                <div class="flex-grow">
-                                    <p class="text-sm text-gray-500">September 15, 2025</p>
-                                    <h3 class="font-bold text-lg text-gray-900 group-hover:text-orange-600">
-                                        Juara 1 Lomba Cerdas Cermat Tingkat Nasional
-                                    </h3>
-                                    <p class="text-base text-gray-700 leading-snug mt-1 line-clamp-2">
-                                        Ini adalah konten untuk **Prestasi**. Siswa kami berhasil memenangkan lomba...
-                                    </p>
+
+                            @foreach ($prestasi as $item)
+                                <a href="#" class="flex space-x-4 group">
+                                    {{-- KOTAK GAMBAR --}}
+                                    <div class="flex-shrink-0 w-28 h-20 bg-gray-200 rounded-md overflow-hidden">
+                                        @if ($item->gambar_thumbnail)
+                                            <img src="{{ asset('storage/' . $item->gambar_thumbnail) }}"
+                                                class="w-full h-full object-cover transition duration-300 group-hover:scale-110"
+                                                alt="{{ $item->judul }}">
+                                        @else
+                                            <img src="{{ asset('assets/image/logo.png') }}"
+                                                class="w-full h-full object-contain p-2 opacity-50" alt="No Image">
+                                        @endif
+                                    </div>
+
+                                    {{-- KONTEN TEKS --}}
+                                    <div class="flex-grow">
+                                        <p class="text-sm text-gray-500">
+                                            {{ \Carbon\Carbon::parse($item->tanggal_publish)->translatedFormat('d F Y') }}
+                                        </p>
+                                        <h3
+                                            class="font-bold text-lg text-gray-900 group-hover:text-orange-600 line-clamp-2">
+                                            {{ $item->judul }}
+                                        </h3>
+                                        <p class="text-base text-gray-700 leading-snug mt-1 line-clamp-2">
+                                            {{ $item->konten_singkat ?? Str::limit(strip_tags($item->isi_konten), 100) }}
+                                        </p>
+                                    </div>
+                                </a>
+                            @endforeach
+
+                            {{-- Pesan jika data kosong --}}
+                            @if ($prestasi->isEmpty())
+                                <div class="text-center py-10 text-gray-500">
+                                    Belum ada prestasi terbaru.
                                 </div>
-                            </a>
+                            @endif
+
                         </div>
                         {{-- untuk karya tulis --}}
                         <div x-show="activeTab === 'karya'" class="space-y-6">
-                            <a href="#" class="flex space-x-4 group">
-                                <div class="flex-shrink-0 w-28 h-20 bg-gray-200 rounded-md"></div>
-                                <div class="flex-grow">
-                                    <p class="text-sm text-gray-500">Agustus 10, 2025</p>
-                                    <h3 class="font-bold text-lg text-gray-900 group-hover:text-orange-600">
-                                        Analisis Dampak Teknologi Terhadap Pola Belajar
-                                    </h3>
-                                    <p class="text-base text-gray-700 leading-snug mt-1 line-clamp-2">
-                                        Ini adalah konten untuk **Karya Tulis**. Sebuah esai yang ditulis oleh siswa kami...
-                                    </p>
+
+                            @foreach ($karya as $item)
+                                <a href="#" class="flex space-x-4 group">
+                                    {{-- KOTAK GAMBAR --}}
+                                    <div class="flex-shrink-0 w-28 h-20 bg-gray-200 rounded-md overflow-hidden">
+                                        @if ($item->gambar_thumbnail)
+                                            <img src="{{ asset('storage/' . $item->gambar_thumbnail) }}"
+                                                class="w-full h-full object-cover transition duration-300 group-hover:scale-110"
+                                                alt="{{ $item->judul }}">
+                                        @else
+                                            <img src="{{ asset('assets/image/logo.png') }}"
+                                                class="w-full h-full object-contain p-2 opacity-50" alt="No Image">
+                                        @endif
+                                    </div>
+
+                                    {{-- KONTEN TEKS --}}
+                                    <div class="flex-grow">
+                                        <p class="text-sm text-gray-500">
+                                            {{ \Carbon\Carbon::parse($item->tanggal_publish)->translatedFormat('d F Y') }}
+                                        </p>
+                                        <h3
+                                            class="font-bold text-lg text-gray-900 group-hover:text-orange-600 line-clamp-2">
+                                            {{ $item->judul }}
+                                        </h3>
+                                        <p class="text-base text-gray-700 leading-snug mt-1 line-clamp-2">
+                                            {{ $item->konten_singkat ?? Str::limit(strip_tags($item->isi_konten), 100) }}
+                                        </p>
+                                    </div>
+                                </a>
+                            @endforeach
+
+                            {{-- Pesan jika data kosong --}}
+                            @if ($karya->isEmpty())
+                                <div class="text-center py-10 text-gray-500">
+                                    Belum ada karya terbaru.
                                 </div>
+                            @endif
+
+                        </div>
+                        {{-- TOMBOL LIHAT SELENGKAPNYA --}}
+                        <div class="mt-8 flex justify-end border-t pt-4">
+                            <a {{-- Ubah link secara dinamis berdasarkan tab yang aktif --}}
+                                :href="activeTab === 'berita' ? '/berita-sekolah' :
+                                    (activeTab === 'prestasi' ? '/prestasi' : '/karya-tulis')"
+                                class="inline-flex items-center text-orange-600 font-semibold hover:text-orange-800 transition group">
+                                <span
+                                    x-text="activeTab === 'berita' ? 'Lihat Semua Berita' : 
+                         (activeTab === 'prestasi' ? 'Lihat Semua Prestasi' : 'Lihat Semua Karya Tulis')">
+                                </span>
+
+                                {{-- Ikon Panah --}}
+                                <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
                             </a>
                         </div>
-
                     </div>
                 </div>
             </div>

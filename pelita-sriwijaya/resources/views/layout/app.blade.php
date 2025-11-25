@@ -25,7 +25,32 @@
                 <ul class="flex space-x-6 text-lg font-medium">
                     <li><a href="/" class="text-gray-700 hover:text-orange-600 transition duration-200">Home</a>
                     </li>
-                    <li><a href="/about" class="text-gray-700 hover:text-orange-600 transition duration-200">About</a>
+                    <li class="relative" x-data="{ dropdownOpen: false }">
+                        <button @click="dropdownOpen = !dropdownOpen" @click.outside="dropdownOpen = false"
+                            class="flex items-center text-gray-700 hover:text-orange-600 transition duration-200 focus:outline-none">
+                            <span>About</span>
+                            <svg class="w-4 h-4 ml-1 transform transition-transform duration-200"
+                                :class="{ 'rotate-180': dropdownOpen }" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+
+                        <div x-show="dropdownOpen" x-transition:enter="transition ease-out duration-100"
+                            x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+                            class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 border border-gray-100 z-50"
+                            style="display: none;"> <a href="/about"
+                                class="block px-4 py-2 text-base text-gray-700 hover:bg-orange-50 hover:text-orange-600">
+                                Tentang Sekolah
+                            </a>
+                            <a href="/berita-sekolah"
+                                class="block px-4 py-2 text-base text-gray-700 hover:bg-orange-50 hover:text-orange-600">
+                                Berita
+                            </a>
+                        </div>
                     </li>
                     <li><a href="{{ route('page.ppdb.welcomePpdb') }}"
                             class="text-gray-700 hover:text-orange-600 transition duration-200">Pendaftaran Siswa</a>
@@ -51,7 +76,26 @@
         <div class="md:hidden px-4 pb-4" x-show="open" x-transition>
             <ul class="flex flex-col space-y-2 text-base font-medium">
                 <li><a href="/" class="text-gray-700 hover:text-orange-600">Home</a></li>
-                <li><a href="/about" class="text-gray-700 hover:text-blue-600">About</a></li>
+                <li x-data="{ subOpen: false }">
+                    <button @click="subOpen = !subOpen"
+                        class="flex items-center justify-between w-full py-2 text-gray-700 hover:text-orange-600 focus:outline-none">
+                        <span>About</span>
+                        <svg class="w-4 h-4 transform transition-transform duration-200"
+                            :class="{ 'rotate-180': subOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                    <div x-show="subOpen" x-collapse
+                        class="pl-4 space-y-2 border-l-2 border-orange-200 ml-1 bg-gray-50 rounded-r-md">
+                        <a href="/about" class="block py-2 text-base text-gray-600 hover:text-orange-600">
+                            Tentang Sekolah
+                        </a>
+                        <a href="/berita-sekolah" class="block py-2 text-base text-gray-600 hover:text-orange-600">
+                            Berita
+                        </a>
+                    </div>
+                </li>
                 <li><a href="{{ route('page.ppdb.welcomePpdb') }}" class="text-gray-700 hover:text-blue-600">PPDB
                         Online</a></li>
                 <li><a href="/contact" class="text-gray-700 hover:text-blue-600">Kontak</a></li>
@@ -67,7 +111,8 @@
     <footer
         class="text-gray-50 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 p-10 shadow-[0_-4px_10px_rgba(0,0,0,0.1)] bg-gray-900">
         <!-- Logo & Sosial Media -->
-        <div class="flex flex-col items-center space-y-4"> <h1 class="text-xl font-bold">Sekolah Pelita Sriwijaya</h1>
+        <div class="flex flex-col items-center space-y-4">
+            <h1 class="text-xl font-bold">Sekolah Pelita Sriwijaya</h1>
             <div class="flex flex-row items-center space-x-4">
                 <img src="{{ asset('assets/image/logo.png') }}" alt="Pelita Sriwijaya Logo" class="h-24 w-auto">
             </div>
@@ -120,8 +165,8 @@
         <div class="flex flex-col items-start">
             <h1 class="text-lg font-bold">TENTANG</h1>
             <ul class="list-disc list-inside marker:text-orange-500 mt-3 space-y-2">
-                <li><a href="/sejarah" class="hover:text-orange-600">Sejarah</a></li>
-                <li><a href="/visi-misi" class="hover:text-orange-600">Visi dan Misi</a></li>
+                <li><a href="/about" class="hover:text-orange-600">Sejarah</a></li>
+                <li><a href="/about" class="hover:text-orange-600">Visi dan Misi</a></li>
                 <li><a href="{{ route('contact') }}" class="hover:text-orange-600">Kontak</a></li>
             </ul>
 

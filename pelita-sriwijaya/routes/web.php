@@ -8,11 +8,10 @@ use App\Http\Controllers\LoginPpdbController;
 use App\Http\Controllers\PpdbForgotPasswordController;
 use App\Http\Controllers\ppdbResetPasswordController;
 use App\Http\Controllers\RegisterAccountPPDBController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/kontak', function () {
     return view('page.contact');
 })->name('contact');
