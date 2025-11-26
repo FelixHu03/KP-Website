@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Slider;
 use Illuminate\Http\Request;
 
 class WelcomeController extends Controller
@@ -14,10 +15,12 @@ class WelcomeController extends Controller
         $prestasi = Post::where('kategori', 'prestasi')->where('is_published', true)->latest()->take(3)->get();
         $karya = Post::where('kategori', 'karya_tulis')->where('is_published', true)->latest()->take(3)->get();
 
-        return view('welcome', [ // Sesuaikan nama view Anda
+        $sliders = Slider::where('is_active', true)->get();
+        return view('welcome', [ 
             'berita' => $berita,
             'prestasi' => $prestasi,
-            'karya' => $karya
+            'karya' => $karya,
+            'sliders' => $sliders,
         ]);
     }
 }

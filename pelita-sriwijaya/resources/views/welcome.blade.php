@@ -10,31 +10,37 @@
         <!-- auto gambar -->
         <div x-data="{
             images: [
-                '{{ asset('assets/image/home/class.jpg') }}',
-                '{{ asset('assets/image/home/class-person.jpg') }}',
-                '{{ asset('assets/image/home/library.jpg') }}'
-            ],
+                    @foreach ($sliders as $slide)
+            '{{ asset('storage/' . $slide->gambar) }}', @endforeach
+                ],
+            @if ($sliders->isEmpty()) images: [
+            '{{ asset('assets/image/home/class.jpg') }}',
+            '{{ asset('assets/image/home/library.jpg') }}'
+        ], @endif
+            {{-- BAGIAN BAWAH TETAP SAMA --}}
             currentIndex: 0,
-            transitioning: false,
-            init() {
-                setInterval(() => {
-                    this.next()
-                }, 3000)
-            },
-            next() {
-                this.transitioning = true
-                setTimeout(() => {
-                    this.currentIndex = (this.currentIndex + 1) % this.images.length
-                    this.transitioning = false
-                }, 300)
-            },
-            prev() {
-                this.transitioning = true
-                setTimeout(() => {
-                    this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length
-                    this.transitioning = false
-                }, 300)
-            }
+                transitioning: false,
+                init() {
+                    if (this.images.length > 1) { 
+                        setInterval(() => {
+                            this.next()
+                        }, 3000)
+                    }
+                },
+                next() {
+                    this.transitioning = true
+                    setTimeout(() => {
+                        this.currentIndex = (this.currentIndex + 1) % this.images.length
+                        this.transitioning = false
+                    }, 300)
+                },
+                prev() {
+                    this.transitioning = true
+                    setTimeout(() => {
+                        this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length
+                        this.transitioning = false
+                    }, 300)
+                }
         }" class="w-full flex items-center justify-center relative">
 
 

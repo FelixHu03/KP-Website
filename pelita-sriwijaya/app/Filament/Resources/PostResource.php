@@ -16,6 +16,13 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -80,16 +87,58 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                //
+                // 1. Menampilkan Gambar Thumbnail
+                ImageColumn::make('gambar_thumbnail')
+                    ->label('Sampul')
+                    ->disk('public') 
+                    ->square()
+                    ->width(50)
+                    ->height(50)
+                    ->defaultImageUrl(url('/assets/image/logo.png')), 
+
+                // 2. Judul Postingan
+                TextColumn::make('judul')
+                    ->searchable()
+                    ->sortable()
+                    ->weight('bold')
+                    ->limit(30) 
+                    ->tooltip(fn (string $state): string => $state),
+
+                // 3. Kategori dengan Badge Berwarna
+                TextColumn::make('kategori')
+                    ->badge() // Tampilan seperti label/badge
+                    ->color(fn (string $state): string => match ($state) {
+                        'berita' => 'info',       // Biru
+                        'prestasi' => 'warning',  // Kuning/Oranye
+                        'karya_tulis' => 'success', // Hijau
+                        default => 'gray',
+                    })
+                    ->formatStateUsing(fn (string $state): string => str($state)->replace('_', ' ')->title())
+                    ->sortable(),
+
+                ToggleColumn::make('is_published')
+                    ->label('Tayang?'),
+
+                TextColumn::make('tanggal_publish')
+                    ->label('Tanggal')
+                    ->date('d M Y')
+                    ->sortable(),
             ])
+            ->defaultSort('created_at', 'desc') 
             ->filters([
-                //
+                SelectFilter::make('kategori')
+                    ->options([
+                        'berita' => 'Berita Sekolah',
+                        'prestasi' => 'Prestasi',
+                        'karya_tulis' => 'Karya Tulis',
+                    ]),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                EditAction::make(),
+                DeleteAction::make(), // Tombol Hapus
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
+                BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
