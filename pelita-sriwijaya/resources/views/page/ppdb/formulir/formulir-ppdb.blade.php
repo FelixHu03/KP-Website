@@ -35,7 +35,7 @@
                     </div>
                 @endif
 
-                    {{-- menampilkan pesan error spesifik --}}
+                {{-- menampilkan pesan error spesifik --}}
                 @if (session('file_upload_error'))
                     <div class="alert alert-danger" role="alert">
                         <strong>Pendaftaran Gagal!</strong>
@@ -127,6 +127,20 @@
                         </div>
                     </div>
 
+                    {{-- Tahun Ajaran --}}
+                    <div class="flex flex-col md:flex-row items-start gap-4 mt-5">
+                        <label for="gelombang" class="md:w-48 font-bold text-lg leading-tight">
+                            Gelombang<span class="text-red-500">*</span>
+                        </label>
+                        <select id="gelombang" name="gelombang" required
+                            class="w-full border border-gray-300 rounded px-5 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">- Pilih Gelombang -</option>
+                            <option value="gelombang_1">Gelombang 1</option>
+                            <option value="gelombang_2">Gelombang 2</option>
+                            <option value="gelombang_3">Gelombang 3</option>
+                        </select>
+                    </div>
+
                     {{-- Vegetarian --}}
                     <div class="flex flex-col md:flex-row items-start gap-4">
                         <label class="md:w-48 font-medium text-lg leading-tight">
@@ -182,11 +196,11 @@
                                 class="w-full text-lg file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
                         </div>
                         <div class="flex flex-col md:flex-row items-start gap-4">
-                            <label for="nins" class="md:w-48 font-medium text-lg leading-tight">
-                                NINS Calon Siswa <span class="text-red-500">*</span>
+                            <label for="nisn" class="md:w-48 font-medium text-lg leading-tight">
+                                NISN Calon Siswa <span class="text-red-500">*</span>
                             </label>
-                            <input type="number" id="nins" name="nins" :required="jenjang === 'SMP'"
-                                placeholder="NINS sesuai dokumen resmi"
+                            <input type="number" id="nisn" name="nisn" :required="jenjang === 'SMP'"
+                                placeholder="NISN sesuai dokumen resmi"
                                 class="w-full border border-gray-300 rounded px-5 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                         </div>
                     </div>

@@ -48,7 +48,7 @@ class PpdbOnlineController extends Controller
         $userId = Auth::guard('ppdb')->id();
 
         $riwayatList = CalonSiswa::where('user_ppdb_id', $userId)
-            ->select('id', 'namalengkap', 'nik', 'tanggallahir', 'jenjang_dipilih', 'created_at')
+            ->select('id', 'namalengkap', 'nik', 'tanggallahir', 'jenjang_dipilih', 'created_at','status')
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -104,8 +104,9 @@ class PpdbOnlineController extends Controller
             'akta_kelahiran' => 'required|file|mimes:jpg,png,jpeg,pdf|max:2048',
             'foto_raport'   => 'required_if:jenjang_dipilih,SMP|file|mimes:jpg,png,jpeg,pdf|max:2048',
             'asalsekolah'   => 'required_if:jenjang_dipilih,SD,SMP|nullable|string',
-            'nins'          => 'required_if:jenjang_dipilih,SMP|nullable|string|max:10',
+            'nisn'          => 'required_if:jenjang_dipilih,SMP|nullable|string|max:10',
             'nilai_ijazah'  => 'required_if:jenjang_dipilih,SMP|nullable|numeric|between:0,100',
+            'gelombang'     => 'required|string',
             'konfirmasi_data_ortu' => 'required',
         ]);
 
@@ -114,11 +115,10 @@ class PpdbOnlineController extends Controller
         $aktaFile  = $request->file('akta_kelahiran');
         $raportFile = $request->file('foto_raport');
 
-        // Hapus kunci file dan konfirmasi dari data yang akan disimpan ke DB CalonSiswa
         unset($validated['akta_kelahiran'], $validated['foto_raport'], $validated['konfirmasi_data_ortu']);
 
         $calonSiswa = null;
-        $finalBasePath = null; // Deklarasikan di luar try agar bisa diakses di catch
+        $finalBasePath = null;
 
         try {
 
@@ -136,9 +136,8 @@ class PpdbOnlineController extends Controller
             // Path dasar tempat folder jenjang berada
             $baseStoragePath = "dokumen_siswa/{$tahunAjaranFolder}/{$jenjang}"; // HASIL: 'dokumen_siswa/2025-2026/sd'
 
-            // 3. LOGIKA BARU: TENTUKAN NAMA FOLDER UNIK
             $counter = 0;
-            $finalNamaSlug = $baseNamaSlug; // 'felix'
+            $finalNamaSlug = $baseNamaSlug; 
             $finalBasePath = "{$baseStoragePath}/{$finalNamaSlug}"; // 'dokumen_siswa/2025-2026/sd/felix'
 
             // Loop untuk mengecek apakah DIREKTORI ini sudah ada
@@ -147,10 +146,6 @@ class PpdbOnlineController extends Controller
                 $finalNamaSlug = "{$baseNamaSlug}_{$counter}"; // 'felix_1'
                 $finalBasePath = "{$baseStoragePath}/{$finalNamaSlug}"; // 'dokumen_siswa/2025-2026/sd/felix_1'
             }
-            // $finalBasePath sekarang berisi path folder unik untuk siswa ini.
-            // $finalNamaSlug berisi slug unik (e.g., 'felix' or 'felix_1')
-
-            // 4. FUNGSI UNTUK MENYIMPAN FILE 
             $saveFile = function ($file, $jenisDokumen) use ($manager, $finalBasePath, $finalNamaSlug) {
                 $ext  = strtolower($file->getClientOriginalExtension());
                 $isPdf = ($ext === 'pdf');
@@ -170,10 +165,9 @@ class PpdbOnlineController extends Controller
                     $encoded = $image->toJpeg(85);
                     Storage::disk('public')->put($path, (string)$encoded);
                 }
-                return $path; // Path ini yang disimpan di DB
+                return $path; 
             };
 
-            // 5. PROSES AKTA KELAHIRAN
             if ($aktaFile) {
                 $pathAkta = $saveFile($aktaFile, "akta_kelahiran");
 
@@ -202,12 +196,9 @@ class PpdbOnlineController extends Controller
             }
         } catch (Exception $e) {
 
-            // ROLLBACK JIKA GAGAL
             if ($calonSiswa) {
-                // Hapus dokumen dari database
                 $calonSiswa->dokumen()->delete();
                 
-                // Hapus folder unik siswa yang baru dibuat (jika sudah terbuat)
                 if ($finalBasePath && Storage::disk('public')->exists($finalBasePath)) {
                     Storage::disk('public')->deleteDirectory($finalBasePath);
                 }

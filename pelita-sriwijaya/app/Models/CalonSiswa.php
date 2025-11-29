@@ -24,12 +24,14 @@ class CalonSiswa extends Model
         'nik',
         'tempatlahir',
         'tanggallahir',
+        'gelombang',
         'jenis_kelamin',
         'vegetarian',
         'handphone',
         'asalsekolah',
-        'nins', // khusus SMP
+        'nisn', // khusus SMP
         'nilai_ijazah', // khusus SMP
+        'status',
     ];
 
     /**

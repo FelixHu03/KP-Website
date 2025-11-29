@@ -7,6 +7,7 @@ use App\Models\CalonSiswa;
 use App\Filament\Resources\DataOrangTuaResource;
 use BcMath\Number;
 use Carbon\Carbon;
+use Dom\Text;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,7 +16,7 @@ use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Section; 
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Actions\BulkActionGroup;
@@ -49,14 +50,30 @@ class CalonSiswaResource extends Resource
                             ->options(['TK' => 'TK', 'SD' => 'SD', 'SMP' => 'SMP'])
                             ->required(),
                         TextInput::make('tahun_ajaran')->label('Tahun Ajaran')->required()->default('2025-2026'),
+                        TextInput::make('nisn')->label('NISN')->required()->maxLength(10),
                     ])->columns(2),
-
+                // Di dalam schema form()
+                Select::make('status')
+                    ->label('Status Penerimaan')
+                    ->options([
+                        'Sedang Diproses' => 'Sedang Diproses',
+                        'Lulus' => 'Lulus',
+                        'Tidak Lulus' => 'Tidak Lulus',
+                    ])
+                    ->required()
+                    ->native(false),
                 Section::make('Data Pribadi')
                     ->schema([
                         TextInput::make('tempatlahir')->label('Tempat Lahir'),
                         DatePicker::make('tanggallahir')->label('Tanggal Lahir'),
                         Select::make('jenis_kelamin')->options(['Laki-laki' => 'Laki-laki', 'Perempuan' => 'Perempuan']),
                         TextInput::make('handphone')->label('No HP')->tel(),
+                        Select::make('vegetarian')->label('Apakah Vegetarian?')->options(['Ya' => 'Ya', 'Tidak' => 'Tidak']),
+                        Select::make('gelombang')->options([
+                            'Gelombang 1' => 'Gelombang 1',
+                            'Gelombang 2' => 'Gelombang 2',
+                            'Gelombang 3' => 'Gelombang 3',
+                        ]),
                     ])->columns(2),
 
                 // GAMBAR AKTA
@@ -114,6 +131,15 @@ class CalonSiswaResource extends Resource
                         default => 'gray',
                     }),
                 TextColumn::make('created_at')->label('Tanggal Daftar')->dateTime('d M Y'),
+                // Di dalam columns table()
+                TextColumn::make('status')
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'Sedang Diproses' => 'warning',
+                        'Lulus' => 'success',           
+                        'Tidak Lulus' => 'danger',      
+                    })
+                    ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('jenjang_dipilih')->options(['TK' => 'TK', 'SD' => 'SD', 'SMP' => 'SMP']),
@@ -143,6 +169,7 @@ class CalonSiswaResource extends Resource
                                 Column::make('asalsekolah')->heading('Asal Sekolah'),
 
                                 Column::make('nins')->heading('NISN'),
+
 
                                 Column::make('nilai_ijazah')->heading('Nilai Ijazah'),
                             ])

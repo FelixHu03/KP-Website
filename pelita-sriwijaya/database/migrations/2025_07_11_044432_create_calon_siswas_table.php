@@ -16,6 +16,8 @@ return new class extends Migration
             
             // Data Jenjang
             $table->string('jenjang_dipilih'); // TK, SD, SMP
+            $table->string('status')->default('Sedang Diproses');
+            
             $table->string('tahun_ajaran');
             // Data Anak
             $table->string('namalengkap');
@@ -26,6 +28,7 @@ return new class extends Migration
             $table->string('jenis_kelamin');
             $table->string('vegetarian');
             $table->string('handphone');
+            $table->string('gelombang');
             // Data Khusus SD & SMP
             $table->string('asalsekolah')->nullable();
             $table->string('nins')->nullable();
@@ -34,7 +37,6 @@ return new class extends Migration
             $table->string('nilai_ijazah')->nullable();
 
             $table->unique(['nik', 'jenjang_dipilih']);
-
 
             $table->timestamps();
         });

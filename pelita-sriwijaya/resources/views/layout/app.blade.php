@@ -46,7 +46,7 @@
                                 class="block px-4 py-2 text-base text-gray-700 hover:bg-orange-50 hover:text-orange-600">
                                 Tentang Sekolah
                             </a>
-                            <a href="/berita-sekolah"
+                            <a href="{{ route('page.post', ['kategori' => 'semua']) }}"
                                 class="block px-4 py-2 text-base text-gray-700 hover:bg-orange-50 hover:text-orange-600">
                                 Berita
                             </a>
@@ -88,10 +88,10 @@
                     </button>
                     <div x-show="subOpen" x-collapse
                         class="pl-4 space-y-2 border-l-2 border-orange-200 ml-1 bg-gray-50 rounded-r-md">
-                        <a href="/about" class="block py-2 text-base text-gray-600 hover:text-orange-600">
+                        <a href="{{ route('about') }}" class="block py-2 text-base text-gray-600 hover:text-orange-600">
                             Tentang Sekolah
                         </a>
-                        <a href="/berita-sekolah" class="block py-2 text-base text-gray-600 hover:text-orange-600">
+                        <a href="{{ route('page.post', ['kategori' => 'semua']) }}" class="block py-2 text-base text-gray-600 hover:text-orange-600">
                             Berita
                         </a>
                     </div>
@@ -165,8 +165,8 @@
         <div class="flex flex-col items-start">
             <h1 class="text-lg font-bold">TENTANG</h1>
             <ul class="list-disc list-inside marker:text-orange-500 mt-3 space-y-2">
-                <li><a href="/about" class="hover:text-orange-600">Sejarah</a></li>
-                <li><a href="/about" class="hover:text-orange-600">Visi dan Misi</a></li>
+                <li><a href="{{ route('about') }}" class="hover:text-orange-600">Sejarah</a></li>
+                <li><a href="{{ route('page.post', ['kategori' => 'semua']) }}" class="hover:text-orange-600">Visi dan Misi</a></li>
                 <li><a href="{{ route('contact') }}" class="hover:text-orange-600">Kontak</a></li>
             </ul>
 
@@ -181,13 +181,13 @@
         <div class="flex flex-col items-start">
             <h1 class="text-lg font-bold">BERITA</h1>
             <ul class="list-disc list-inside marker:text-orange-500 mt-3 space-y-2">
-                <li><a href="/berita-sekolah" class="hover:text-orange-600">Berita Sekolah</a></li>
+                <li><a href="{{ route('page.post', ['kategori' => 'berita']) }}" class="hover:text-orange-600">Berita Sekolah</a></li>
             </ul>
 
             <h1 class="text-lg font-bold mt-6">PESERTA DIDIK</h1>
             <ul class="list-disc list-inside marker:text-orange-500 mt-3 space-y-2">
-                <li><a href="/prestasi" class="hover:text-orange-600">Prestasi</a></li>
-                <li><a href="/karya-tulis" class="hover:text-orange-600">Karya Tulis</a></li>
+                <li><a href="{{ route('page.post', ['kategori' => 'prestasi']) }}" class="hover:text-orange-600">Prestasi</a></li>
+                <li><a href="{{ route('page.post', ['kategori' => 'karya_tulis']) }}" class="hover:text-orange-600">Karya Tulis</a></li>
             </ul>
         </div>
     </footer>

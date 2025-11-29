@@ -26,7 +26,6 @@ return new class extends Migration
                 'Ditolak'
             ])->default('Diunggah');
             
-            $table->text('catatan_verifikator')->nullable();
             $table->timestamps();
 
             // Relasi ke tabel 'calon_siswas'

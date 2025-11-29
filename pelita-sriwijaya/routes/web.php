@@ -19,6 +19,16 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact.index
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 
+use App\Http\Controllers\PostController;
+
+// Halaman Arsip (Menampilkan Semua)
+Route::get('/informasi', [PostController::class, 'index'])->name('page.post');
+Route::get('/informasi/{post:slug}', [PostController::class, 'show'])->name('page.post.show');
+
+Route::get('/berita-sekolah', fn() => to_route('page.post', ['kategori' => 'berita']));
+Route::get('/prestasi', fn() => to_route('page.post', ['kategori' => 'prestasi']));
+Route::get('/karya-tulis', fn() => to_route('page.post', ['kategori' => 'karya_tulis']));
+
 
 Route::prefix('ppdb')->group(function () {
     // Redirect ke halaman welcome PPDB
