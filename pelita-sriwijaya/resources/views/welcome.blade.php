@@ -24,7 +24,7 @@
                     if (this.images.length > 1) { 
                         setInterval(() => {
                             this.next()
-                        }, 3000)
+                        }, 3500)
                     }
                 },
                 next() {
@@ -168,7 +168,7 @@
                         <div x-show="activeTab === 'berita'" class="space-y-6">
 
                             @foreach ($berita as $item)
-                                <a href="#" class="flex space-x-4 group">
+                                <a href="{{ route('page.post.show', $item) }}" class="flex space-x-4 group">
                                     {{-- KOTAK GAMBAR --}}
                                     <div class="flex-shrink-0 w-28 h-20 bg-gray-200 rounded-md overflow-hidden">
                                         {{-- Cek apakah ada gambar, jika tidak pakai gambar default --}}
@@ -210,7 +210,7 @@
                         <div x-show="activeTab === 'prestasi'" class="space-y-6">
 
                             @foreach ($prestasi as $item)
-                                <a href="#" class="flex space-x-4 group">
+                                <a href="{{ route('page.post.show', $item) }}" class="flex space-x-4 group">
                                     {{-- KOTAK GAMBAR --}}
                                     <div class="flex-shrink-0 w-28 h-20 bg-gray-200 rounded-md overflow-hidden">
                                         @if ($item->gambar_thumbnail)
@@ -251,7 +251,7 @@
                         <div x-show="activeTab === 'karya'" class="space-y-6">
 
                             @foreach ($karya as $item)
-                                <a href="#" class="flex space-x-4 group">
+                                <a href="{{ route('page.post.show', $item) }}" class="flex space-x-4 group">
                                     {{-- KOTAK GAMBAR --}}
                                     <div class="flex-shrink-0 w-28 h-20 bg-gray-200 rounded-md overflow-hidden">
                                         @if ($item->gambar_thumbnail)

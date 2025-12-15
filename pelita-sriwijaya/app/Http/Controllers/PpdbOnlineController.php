@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\CalonSiswa;
 use App\Models\DokumenCalonSiswa;
+use App\Models\Gelombang;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -33,7 +35,6 @@ class PpdbOnlineController extends Controller
         // Validasi sederhana agar URL-nya aman
         $jenjang_valid = strtoupper($jenjang);
         if (!in_array($jenjang_valid, ['TK', 'SD', 'SMP'])) {
-            // Jika jenjang tidak valid, kembalikan ke halaman pendaftaran
             return redirect()->route('ppdb-online.pendaftaran');
         }
 
@@ -48,7 +49,7 @@ class PpdbOnlineController extends Controller
         $userId = Auth::guard('ppdb')->id();
 
         $riwayatList = CalonSiswa::where('user_ppdb_id', $userId)
-            ->select('id', 'namalengkap', 'nik', 'tanggallahir', 'jenjang_dipilih', 'created_at','status')
+            ->select('id', 'namalengkap', 'nik', 'tanggallahir', 'jenjang_dipilih', 'created_at', 'status')
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -60,10 +61,10 @@ class PpdbOnlineController extends Controller
     public function showDetailRiwayat($id)
     {
         // Ambil data siswa, tapi juga load relasi '
-        $calonSiswa = CalonSiswa::with(['dokumen', 'user.dataOrangTua'])
+        $calonSiswa = CalonSiswa::with(['dokumen', 'user.dataOrangTua', 'gelombang'])
             ->where('id', $id)
-            ->where('user_ppdb_id', Auth::guard('ppdb')->id()) // Keamanan: pastikan ini milik user yg login
-            ->firstOrFail(); // Akan error 404 jika bukan miliknya
+            ->where('user_ppdb_id', Auth::guard('ppdb')->id()) 
+            ->firstOrFail();
 
         // Tampilkan view detail dan kirim datanya
         return view('page.ppdb.detail-pendaftaran', [
@@ -106,11 +107,9 @@ class PpdbOnlineController extends Controller
             'asalsekolah'   => 'required_if:jenjang_dipilih,SD,SMP|nullable|string',
             'nisn'          => 'required_if:jenjang_dipilih,SMP|nullable|string|max:10',
             'nilai_ijazah'  => 'required_if:jenjang_dipilih,SMP|nullable|numeric|between:0,100',
-            'gelombang'     => 'required|string',
             'konfirmasi_data_ortu' => 'required',
         ]);
 
-        $validated['user_ppdb_id'] = Auth::guard('ppdb')->id();
 
         $aktaFile  = $request->file('akta_kelahiran');
         $raportFile = $request->file('foto_raport');
@@ -120,24 +119,38 @@ class PpdbOnlineController extends Controller
         $calonSiswa = null;
         $finalBasePath = null;
 
+        $today = Carbon::now();
+        $gelombangAktif = Gelombang::where('is_active', true)
+            ->whereDate('tanggal_mulai', '<=', $today)
+            ->whereDate('tanggal_selesai', '>=', $today)
+            ->first(); // Ambil satu saja
+
+        if (!$gelombangAktif) {
+            // Jika tidak ada gelombang buka, tolak pendaftaran
+            return back()->withInput()->withErrors(['msg' => 'Maaf, pendaftaran sedang ditutup atau belum ada gelombang yang dibuka.']);
+        }
+        $validated['gelombang_id'] = $gelombangAktif->id;
+        $validated['user_ppdb_id'] = Auth::guard('ppdb')->id();
+        $validated['status'] = 'Sedang Diproses'; // Default status
+
         try {
 
             // 1. BUAT INSTANCE SISWA
             $calonSiswa = CalonSiswa::create($validated);
             $studentId = $calonSiswa->id;
-            
+
             // 2. TENTUKAN PATH DASAR DAN SLUG
             $manager = new ImageManager(new Driver());
             $jenjang = strtolower($validated['jenjang_dipilih']);
             $tahunAjaranAsli = $validated['tahun_ajaran'];
             $tahunAjaranFolder = str_replace('/', '-', $tahunAjaranAsli);
             $baseNamaSlug = Str::slug($validated['namalengkap'], '_'); // 'felix'
-            
+
             // Path dasar tempat folder jenjang berada
             $baseStoragePath = "dokumen_siswa/{$tahunAjaranFolder}/{$jenjang}"; // HASIL: 'dokumen_siswa/2025-2026/sd'
 
             $counter = 0;
-            $finalNamaSlug = $baseNamaSlug; 
+            $finalNamaSlug = $baseNamaSlug;
             $finalBasePath = "{$baseStoragePath}/{$finalNamaSlug}"; // 'dokumen_siswa/2025-2026/sd/felix'
 
             // Loop untuk mengecek apakah DIREKTORI ini sudah ada
@@ -150,10 +163,10 @@ class PpdbOnlineController extends Controller
                 $ext  = strtolower($file->getClientOriginalExtension());
                 $isPdf = ($ext === 'pdf');
                 $fileExt = ($isPdf ? 'pdf' : 'jpg');
-                
+
                 // Buat nama file menggunakan slug unik dari folder
                 $finalName = "{$jenisDokumen}_{$finalNamaSlug}.{$fileExt}"; // 'akta_kelahiran_felix_1.jpg'
-                
+
                 // Path lengkap ke file
                 $path = "{$finalBasePath}/{$finalName}"; //'dokumen_siswa/.../felix_1/akta_kelahiran_felix_1.jpg'
 
@@ -165,7 +178,7 @@ class PpdbOnlineController extends Controller
                     $encoded = $image->toJpeg(85);
                     Storage::disk('public')->put($path, (string)$encoded);
                 }
-                return $path; 
+                return $path;
             };
 
             if ($aktaFile) {
@@ -198,11 +211,11 @@ class PpdbOnlineController extends Controller
 
             if ($calonSiswa) {
                 $calonSiswa->dokumen()->delete();
-                
+
                 if ($finalBasePath && Storage::disk('public')->exists($finalBasePath)) {
                     Storage::disk('public')->deleteDirectory($finalBasePath);
                 }
-                
+
                 // Hapus data siswa
                 $calonSiswa->delete();
             }

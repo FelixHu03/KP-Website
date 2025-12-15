@@ -24,12 +24,12 @@ class CalonSiswa extends Model
         'nik',
         'tempatlahir',
         'tanggallahir',
-        'gelombang',
+        'gelombang_id',
         'jenis_kelamin',
         'vegetarian',
         'handphone',
         'asalsekolah',
-        'nisn', // khusus SMP
+        'nins', // khusus SMP
         'nilai_ijazah', // khusus SMP
         'status',
     ];
@@ -48,5 +48,9 @@ class CalonSiswa extends Model
     {
         // Pastikan Anda punya Model DokumenCalonSiswa
         return $this->hasMany(DokumenCalonSiswa::class, 'calon_siswa_id');
+    }
+    public function gelombang()
+    {
+        return $this->belongsTo(Gelombang::class, 'gelombang_id');
     }
 }

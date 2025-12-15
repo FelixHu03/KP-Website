@@ -11,43 +11,64 @@
         <div class="bg-white shadow-md rounded-lg p-6 mb-12">
             <h3 class="text-2xl font-semibold mb-4 text-orange-600">Profil Sekolah</h3>
             <p class="text-gray-700 leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non velit sed mauris convallis bibendum. 
-                Sed nec augue vel nibh efficitur facilisis. Suspendisse potenti. Nulla facilisi. Pellentesque habitant morbi 
-                tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur sit amet dui non nisl tincidunt 
-                aliquam non at lorem.
+                Mewujudkan SD Peliita Sriwijaya
+                Palembang sebagai sekolah bertaraf
+                Nasional, yang Beriman dan Bertaqwa
+                Kepada Tuhan Yang Maha Esa.
             </p>
         </div>
 
         <!-- Misi dan Visi -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Visi -->
-            <div class="bg-gray-50 shadow rounded-lg p-6">
-                <h3 class="text-xl font-semibold mb-3 text-orange-600">Visi</h3>
-                <p class="text-gray-700">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis sapien at elit luctus tristique. 
-                    Etiam at tincidunt lectus. Quisque in dictum elit.
-                </p>
-            </div>
 
-            <!-- Misi -->
-            <div class="bg-gray-50 shadow rounded-lg p-6">
-                <h3 class="text-xl font-semibold mb-3 text-orange-600">Misi</h3>
-                <ul class="list-disc pl-5 text-gray-700 space-y-2">
-                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                    <li>Phasellus non arcu at justo porttitor iaculis.</li>
-                    <li>Fusce malesuada nisi in nisi bibendum, eget sollicitudin sem elementum.</li>
-                    <li>Proin consequat quam at sem commodo, sit amet tempus nisl lacinia.</li>
-                </ul>
-            </div>
+        <!-- Visi -->
+        <div class="bg-white shadow-md rounded-lg p-6 mb-12">
+            <h3 class="text-xl font-semibold mb-3 text-orange-600">Visi</h3>
+            <p class="text-gray-700">
+                Mewujudkan SD Peliita Sriwijaya
+                Palembang sebagai sekolah bertaraf
+                Nasional, yang Beriman dan Bertaqwa
+                Kepada Tuhan Yang Maha Esa.
+            </p>
         </div>
 
+        <!-- Misi -->
+        <div class="bg-white shadow-md rounded-lg p-6 mb-12">
+            <h3 class="text-xl font-semibold mb-3 text-orange-600">Misi</h3>
+            <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                <li>Menyelenggarakan kegiatan yang
+                    dapat meningkatkan keimanan dan
+                    ketaqwaan kepada Tuhan Yang Maha
+                    Esa .</li>
+                <li>Memupuk dan mengembangkan sikap
+                    terampil dalam bekerja sama dalam
+                    aspek kehidupan.</li>
+                <li>Melaksanakan pembelajaran dan
+                    bimbingan secara berkelanjutan dan
+                    terprogram sehingga tiap siswa dapat
+                    berkembang secara optimal sesuai
+                    dengan potensi yang dimiliki.</li>
+                <li>Mengembangkan dan
+                    mengintegrasikan pendidikan
+                    kewirausahaan dan lingkungan hidup
+                    ke dalamkurikulum sekolah</li>
+                <li>Menerapkan pendidikan yang berbasis
+                    IPTEK.
+                </li>
+                <li>Membimbing dan membantu setiap
+                    siswa untuk mengenali potensidirinya
+                    sehingga dapatdikembangkan secara
+                    optimal.
+                </li>
+            </ul>
+        </div>
+
+    
         <!-- Nilai-Nilai -->
         <div class="mt-12 bg-white shadow-md rounded-lg p-6">
             <h3 class="text-2xl font-semibold mb-4 text-orange-600">Nilai-Nilai Sekolah</h3>
             <p class="text-gray-700 leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id libero nec risus tincidunt sollicitudin. 
-                Cras at tincidunt magna. Integer varius, justo sed laoreet finibus, tortor sem bibendum enim, nec ultrices 
-                purus nisl ac erat. Vivamus vitae sapien sed lorem pretium iaculis.
+                Yang Beriman dan Bertaqwa
+                Kepada Tuhan Yang Maha Esa.
             </p>
         </div>
 

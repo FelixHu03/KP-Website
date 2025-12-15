@@ -28,7 +28,6 @@ return new class extends Migration
             $table->string('jenis_kelamin');
             $table->string('vegetarian');
             $table->string('handphone');
-            $table->string('gelombang');
             // Data Khusus SD & SMP
             $table->string('asalsekolah')->nullable();
             $table->string('nins')->nullable();

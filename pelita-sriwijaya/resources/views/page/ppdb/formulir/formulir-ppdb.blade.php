@@ -127,19 +127,28 @@
                         </div>
                     </div>
 
-                    {{-- Tahun Ajaran --}}
-                    <div class="flex flex-col md:flex-row items-start gap-4 mt-5">
-                        <label for="gelombang" class="md:w-48 font-bold text-lg leading-tight">
-                            Gelombang<span class="text-red-500">*</span>
-                        </label>
-                        <select id="gelombang" name="gelombang" required
-                            class="w-full border border-gray-300 rounded px-5 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option value="">- Pilih Gelombang -</option>
-                            <option value="gelombang_1">Gelombang 1</option>
-                            <option value="gelombang_2">Gelombang 2</option>
-                            <option value="gelombang_3">Gelombang 3</option>
-                        </select>
-                    </div>
+                    {{-- Gelombang --}}
+                    @php
+                        $today = \Carbon\Carbon::now();
+                        $gelombang = \App\Models\Gelombang::whereDate('tanggal_mulai', '<=', $today)
+                            ->whereDate('tanggal_selesai', '>=', $today)
+                            ->first();
+                    @endphp
+
+                    @if ($gelombang)
+                        <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4">
+                            <p class="font-bold">Info Pendaftaran</p>
+                            <p>Saat ini Anda mendaftar pada: <strong>{{ $gelombang->nama_gelombang }}</strong></p>
+                            <p>Biaya Pendaftaran:
+                                <strong>{{ $gelombang->biaya_pendaftaran == 0 ? 'GRATIS' : 'Rp ' . number_format($gelombang->biaya_pendaftaran) }}</strong>
+                            </p>
+                        </div>
+                    @else
+                        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4">
+                            <p class="font-bold">Maaf, Pendaftaran Ditutup</p>
+                            <p>Tidak ada gelombang pendaftaran yang aktif saat ini.</p>
+                        </div>
+                    @endif
 
                     {{-- Vegetarian --}}
                     <div class="flex flex-col md:flex-row items-start gap-4">

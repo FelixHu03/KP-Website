@@ -166,7 +166,7 @@
             <h1 class="text-lg font-bold">TENTANG</h1>
             <ul class="list-disc list-inside marker:text-orange-500 mt-3 space-y-2">
                 <li><a href="{{ route('about') }}" class="hover:text-orange-600">Sejarah</a></li>
-                <li><a href="{{ route('page.post', ['kategori' => 'semua']) }}" class="hover:text-orange-600">Visi dan Misi</a></li>
+                <li><a href="{{ route('about') }}" class="hover:text-orange-600">Visi dan Misi</a></li>
                 <li><a href="{{ route('contact') }}" class="hover:text-orange-600">Kontak</a></li>
             </ul>
 
