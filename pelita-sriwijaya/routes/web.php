@@ -40,7 +40,9 @@ Route::prefix('ppdb')->group(function () {
     Route::get('/welcome', function () {
         return view('page.ppdb.welcomePpdb');
     })->name('page.ppdb.welcomePpdb');
-
+    Route::get('/panduan', function () {
+        return view('page.ppdb.panduanppdb');
+    })->name('page.ppdb.panduanppdb');
     // Rute Lupa Password
     Route::get('/forgot-password', [PpdbForgotPasswordController::class, 'showLinkRequestForm'])
         ->middleware('guest:ppdb')

@@ -43,9 +43,7 @@
                     class="block w-full bg-green-500 hover:bg-green-600 text-white py-2 text-center font-semibold rounded">Daftar</a>
                 <a href="{{ route('login') }}"
                     class="block w-full bg-blue-500 hover:bg-blue-600 text-white py-2 text-center font-semibold rounded">Login</a>
-                <a href="#"
-                    class="block w-full bg-gray-500 hover:bg-gray-600 text-white py-2 text-center font-semibold rounded">Waitlist
-                    2027/2028</a>
+               
             </div>
         </div>
 
@@ -62,12 +60,12 @@
                 <li>PPDB 2026/2027 untuk SMA (untuk siswa kelas 9 SMP)</li>
             </ul>
             <div class="space-y-2 mt-4">
-                <a href="#" class="block bg-gray-800 text-white text-center px-4 py-2 rounded hover:bg-gray-700">
+                <a href="{{ route('page.ppdb.panduanppdb') }}" class="block bg-gray-800 text-white text-center px-4 py-2 rounded hover:bg-gray-700">
                     Panduan Pendaftaran
                 </a>
                 <a href="#"
                     class="block bg-white border border-gray-400 text-center px-4 py-2 rounded hover:bg-gray-50">
-                    PPDB 2026/2027 SD, SMP, SMA (Gelombang 3)
+                    PPDB 2026/2027 TK, SD, SMP(Gelombang 3)
                 </a>
             </div>
         </div>
