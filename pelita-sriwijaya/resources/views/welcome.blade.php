@@ -1,76 +1,74 @@
 @extends('layout.app')
 
 @section('main-content')
-    <div class="text-start flex flex-col items-center space-y-10 py-8 ml-10 mr-10 ">
-        <!-- Judul -->
-        <h2 class="text-3xl text-center items-center font-bold text-orange-600">
+    <div class="text-start flex flex-col items-center space-y-6 py-8 px-4 md:px-10">
+        <h2 class="text-3xl md:text-4xl text-center font-bold text-orange-600">
             Welcome to Pelita Sriwijaya
         </h2>
+    </div>
 
-        <!-- auto gambar -->
-        <div x-data="{
-            images: [
-                    @foreach ($sliders as $slide)
-            '{{ asset('storage/' . $slide->gambar) }}', @endforeach
-                ],
-            @if ($sliders->isEmpty()) images: [
+    {{-- slider --}}
+    <div class="w-full relative group" x-data="{
+        images: [
+            @foreach ($sliders as $slide)
+                '{{ asset('storage/' . $slide->gambar) }}', @endforeach
+        ],
+        @if ($sliders->isEmpty()) images: [
             '{{ asset('assets/image/home/class.jpg') }}',
             '{{ asset('assets/image/home/library.jpg') }}'
         ], @endif
-            {{-- BAGIAN BAWAH TETAP SAMA --}}
-            currentIndex: 0,
-                transitioning: false,
-                init() {
-                    if (this.images.length > 1) { 
-                        setInterval(() => {
-                            this.next()
-                        }, 3500)
-                    }
-                },
-                next() {
-                    this.transitioning = true
-                    setTimeout(() => {
-                        this.currentIndex = (this.currentIndex + 1) % this.images.length
-                        this.transitioning = false
-                    }, 300)
-                },
-                prev() {
-                    this.transitioning = true
-                    setTimeout(() => {
-                        this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length
-                        this.transitioning = false
-                    }, 300)
-                }
-        }" class="w-full flex items-center justify-center relative">
+        currentIndex: 0,
+        transitioning: false,
+        init() {
+            if (this.images.length > 1) {
+                setInterval(() => {
+                    this.next()
+                }, 3500)
+            }
+        },
+        next() {
+            this.transitioning = true
+            setTimeout(() => {
+                this.currentIndex = (this.currentIndex + 1) % this.images.length
+                this.transitioning = false
+            }, 300)
+        },
+        prev() {
+            this.transitioning = true
+            setTimeout(() => {
+                this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length
+                this.transitioning = false
+            }, 300)
+        }
+    }">
+        <div class="w-full h-[300px] lg:h-[750px] md:h-[500px] relative overflow-hidden bg-gray-200">
 
+            {{-- Tombol Kiri --}}
+            <button @click="prev"
+                class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm shadow-md rounded-full p-3 hover:bg-white transition z-20">
+                <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 18l-6-6 6-6"></path>
+                </svg>
+            </button>
 
-            <!-- Container Gambar -->
-            <div class="w-full flex justify-center ">
-                <!-- Tombol Kiri -->
-                <button @click="prev"
-                    class="absolute left-[2%] top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full p-2 hover:bg-blue-100 transition z-10 opacity-60 ">
-                    <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" stroke-width="2"
-                        viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M15 18l-6-6 6-6"></path>
-                    </svg>
-                </button>
-                <img :src="images[currentIndex]"
-                    x-bind:class="transitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'"
-                    class="w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] xl:h-[600px] object-cover rounded-lg shadow-lg transition-all duration-300 ease-out"
-                    alt="Slider Image" />
+            {{-- Gambar --}}
+            <img :src="images[currentIndex]" x-bind:class="transitioning ? 'opacity-80 scale-105' : 'opacity-100 scale-100'"
+                class="w-full h-full object-cover transition-all duration-500 ease-in-out" alt="Slider Image" />
 
-                <!-- Tombol Kanan -->
-                <button @click="next"
-                    class="absolute right-[2%] top-1/2 -translate-y-1/2 bg-white shadow-md rounded-full p-2 hover:bg-orange-100 transition z-10 opacity-60">
-                    <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" stroke-width="2"
-                        viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 18l6-6-6-6"></path>
-                    </svg>
-                </button>
-            </div>
-
+            {{-- Tombol Kanan --}}
+            <button @click="next"
+                class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm shadow-md rounded-full p-3 hover:bg-white transition z-20">
+                <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" stroke-width="2"
+                    viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 18l6-6-6-6"></path>
+                </svg>
+            </button>
         </div>
-        <!-- Logo Tingkat Sekolah -->
+    </div>
+
+    <div class="text-start flex flex-col items-center space-y-10 py-8 px-4 md:px-10">
+
         <div x-data="{
             images: [
                 '{{ asset('assets/image/logo tingkat sekolah/logo-SD-test.jpg') }}',
@@ -80,7 +78,7 @@
             handleClick(image) {
                 alert('Gambar diklik: ' + image);
             }
-        }" class="grid grid-flow-col grid-cols-3 gap-5 justify-center items-center">
+        }" class="grid grid-flow-col grid-cols-3 gap-5 justify-center items-center mt-6">
             <template x-for="(image, index) in images" :key="index">
                 <a :href="'#' + image" class="cursor-pointer transition-transform hover:scale-105">
                     <img :src="image" alt="Logo Image"
@@ -89,11 +87,7 @@
             </template>
         </div>
 
-
-
-
-        <!-- Deskripsi -->
-        <div class="text-lg m-3 text-start w-full mt-">
+        <div class="text-lg m-3 text-start w-full">
             <h1 class="text-orange-600 font-bold text-2xl">Selamat Datang di Sekolah Pelita Sriwijaya</h1>
             <p class="mt-2.5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
                 labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -101,17 +95,17 @@
                 dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
                 deserunt mollit anim id est laborum</p>
         </div>
-        <!-- Fasilitas-->
-        <div class="text-lg m-3 text-start w-full ">
+
+        <div class="text-lg m-3 text-start w-full">
             <h1 class="text-orange-600 font-bold text-2xl">Fasilitas</h1>
             <div x-data="{
                 images: [
-                    '{{ asset('assets/image/logo tingkat sekolah/logo-SD-test.jpg') }}',
-                    '{{ asset('assets/image/logo tingkat sekolah/logo-tk-test.png') }}',
-                    '{{ asset('assets/image/logo tingkat sekolah/logo-SD-test.jpg') }}',
-                    '{{ asset('assets/image/logo tingkat sekolah/logo-SD-test.jpg') }}',
-                    '{{ asset('assets/image/logo tingkat sekolah/logo-tk-test.png') }}',
-                    '{{ asset('assets/image/logo tingkat sekolah/logo-SD-test.jpg') }}'
+                    '{{ asset('assets/image/home/Fasilitas/aula.jpeg') }}',
+                    '{{ asset('assets/image/home/Fasilitas/halaman_depan.jpeg') }}',
+                    '{{ asset('assets/image/home/Fasilitas/play_ground.jpeg') }}',
+                    '{{ asset('assets/image/home/Fasilitas/Ruang_kelas.jpeg') }}',
+                    '{{ asset('assets/image/home/Fasilitas/lapangan_belakang.jpeg') }}',
+                    '{{ asset('assets/image/home/Fasilitas/lab.jpeg') }}',
                 ],
                 handleClick(image) {
                     alert('Gambar diklik: ' + image);
@@ -166,12 +160,9 @@
                     <div class="mt-6">
                         {{-- untuk berita --}}
                         <div x-show="activeTab === 'berita'" class="space-y-6">
-
                             @foreach ($berita as $item)
                                 <a href="{{ route('page.post.show', $item) }}" class="flex space-x-4 group">
-                                    {{-- KOTAK GAMBAR --}}
                                     <div class="flex-shrink-0 w-28 h-20 bg-gray-200 rounded-md overflow-hidden">
-                                        {{-- Cek apakah ada gambar, jika tidak pakai gambar default --}}
                                         @if ($item->gambar_thumbnail)
                                             <img src="{{ asset('storage/' . $item->gambar_thumbnail) }}"
                                                 class="w-full h-full object-cover transition duration-300 group-hover:scale-110"
@@ -181,8 +172,6 @@
                                                 class="w-full h-full object-contain p-2 opacity-50" alt="No Image">
                                         @endif
                                     </div>
-
-                                    {{-- KONTEN TEKS --}}
                                     <div class="flex-grow">
                                         <p class="text-sm text-gray-500">
                                             {{ \Carbon\Carbon::parse($item->tanggal_publish)->translatedFormat('d F Y') }}
@@ -197,21 +186,15 @@
                                     </div>
                                 </a>
                             @endforeach
-
-                            {{-- Pesan jika data kosong --}}
                             @if ($berita->isEmpty())
-                                <div class="text-center py-10 text-gray-500">
-                                    Belum ada berita terbaru.
-                                </div>
+                                <div class="text-center py-10 text-gray-500">Belum ada berita terbaru.</div>
                             @endif
-
                         </div>
+
                         {{-- untuk prestasi --}}
                         <div x-show="activeTab === 'prestasi'" class="space-y-6">
-
                             @foreach ($prestasi as $item)
                                 <a href="{{ route('page.post.show', $item) }}" class="flex space-x-4 group">
-                                    {{-- KOTAK GAMBAR --}}
                                     <div class="flex-shrink-0 w-28 h-20 bg-gray-200 rounded-md overflow-hidden">
                                         @if ($item->gambar_thumbnail)
                                             <img src="{{ asset('storage/' . $item->gambar_thumbnail) }}"
@@ -222,8 +205,6 @@
                                                 class="w-full h-full object-contain p-2 opacity-50" alt="No Image">
                                         @endif
                                     </div>
-
-                                    {{-- KONTEN TEKS --}}
                                     <div class="flex-grow">
                                         <p class="text-sm text-gray-500">
                                             {{ \Carbon\Carbon::parse($item->tanggal_publish)->translatedFormat('d F Y') }}
@@ -238,21 +219,15 @@
                                     </div>
                                 </a>
                             @endforeach
-
-                            {{-- Pesan jika data kosong --}}
                             @if ($prestasi->isEmpty())
-                                <div class="text-center py-10 text-gray-500">
-                                    Belum ada prestasi terbaru.
-                                </div>
+                                <div class="text-center py-10 text-gray-500">Belum ada prestasi terbaru.</div>
                             @endif
-
                         </div>
+
                         {{-- untuk karya tulis --}}
                         <div x-show="activeTab === 'karya'" class="space-y-6">
-
                             @foreach ($karya as $item)
                                 <a href="{{ route('page.post.show', $item) }}" class="flex space-x-4 group">
-                                    {{-- KOTAK GAMBAR --}}
                                     <div class="flex-shrink-0 w-28 h-20 bg-gray-200 rounded-md overflow-hidden">
                                         @if ($item->gambar_thumbnail)
                                             <img src="{{ asset('storage/' . $item->gambar_thumbnail) }}"
@@ -263,8 +238,6 @@
                                                 class="w-full h-full object-contain p-2 opacity-50" alt="No Image">
                                         @endif
                                     </div>
-
-                                    {{-- KONTEN TEKS --}}
                                     <div class="flex-grow">
                                         <p class="text-sm text-gray-500">
                                             {{ \Carbon\Carbon::parse($item->tanggal_publish)->translatedFormat('d F Y') }}
@@ -279,27 +252,19 @@
                                     </div>
                                 </a>
                             @endforeach
-
-                            {{-- Pesan jika data kosong --}}
                             @if ($karya->isEmpty())
-                                <div class="text-center py-10 text-gray-500">
-                                    Belum ada karya terbaru.
-                                </div>
+                                <div class="text-center py-10 text-gray-500">Belum ada karya terbaru.</div>
                             @endif
-
                         </div>
+
                         {{-- TOMBOL LIHAT SELENGKAPNYA --}}
                         <div class="mt-8 flex justify-end border-t pt-4">
-                            <a {{-- Ubah link secara dinamis berdasarkan tab yang aktif --}}
-                                :href="activeTab === 'berita' ? '/berita-sekolah' :
-                                    (activeTab === 'prestasi' ? '/prestasi' : '/karya-tulis')"
+                            <a :href="activeTab === 'berita' ? '/berita-sekolah' : (activeTab === 'prestasi' ? '/prestasi' :
+                                '/karya-tulis')"
                                 class="inline-flex items-center text-orange-600 font-semibold hover:text-orange-800 transition group">
                                 <span
-                                    x-text="activeTab === 'berita' ? 'Lihat Semua Berita' : 
-                         (activeTab === 'prestasi' ? 'Lihat Semua Prestasi' : 'Lihat Semua Karya Tulis')">
+                                    x-text="activeTab === 'berita' ? 'Lihat Semua Berita' : (activeTab === 'prestasi' ? 'Lihat Semua Prestasi' : 'Lihat Semua Karya Tulis')">
                                 </span>
-
-                                {{-- Ikon Panah --}}
                                 <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition" fill="none"
                                     stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

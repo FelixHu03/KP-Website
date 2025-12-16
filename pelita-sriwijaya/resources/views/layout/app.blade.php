@@ -91,7 +91,8 @@
                         <a href="{{ route('about') }}" class="block py-2 text-base text-gray-600 hover:text-orange-600">
                             Tentang Sekolah
                         </a>
-                        <a href="{{ route('page.post', ['kategori' => 'semua']) }}" class="block py-2 text-base text-gray-600 hover:text-orange-600">
+                        <a href="{{ route('page.post', ['kategori' => 'semua']) }}"
+                            class="block py-2 text-base text-gray-600 hover:text-orange-600">
                             Berita
                         </a>
                     </div>
@@ -181,16 +182,23 @@
         <div class="flex flex-col items-start">
             <h1 class="text-lg font-bold">BERITA</h1>
             <ul class="list-disc list-inside marker:text-orange-500 mt-3 space-y-2">
-                <li><a href="{{ route('page.post', ['kategori' => 'berita']) }}" class="hover:text-orange-600">Berita Sekolah</a></li>
+                <li><a href="{{ route('page.post', ['kategori' => 'berita']) }}" class="hover:text-orange-600">Berita
+                        Sekolah</a></li>
             </ul>
 
             <h1 class="text-lg font-bold mt-6">PESERTA DIDIK</h1>
             <ul class="list-disc list-inside marker:text-orange-500 mt-3 space-y-2">
-                <li><a href="{{ route('page.post', ['kategori' => 'prestasi']) }}" class="hover:text-orange-600">Prestasi</a></li>
-                <li><a href="{{ route('page.post', ['kategori' => 'karya_tulis']) }}" class="hover:text-orange-600">Karya Tulis</a></li>
+                <li><a href="{{ route('page.post', ['kategori' => 'prestasi']) }}"
+                        class="hover:text-orange-600">Prestasi</a></li>
+                <li><a href="{{ route('page.post', ['kategori' => 'karya_tulis']) }}"
+                        class="hover:text-orange-600">Karya Tulis</a></li>
             </ul>
         </div>
     </footer>
+    {{-- Copyright Bar --}}
+    <div class="bg-gray-900 py-4 text-center text-sm text-gray-50">
+        &copy; {{ date('Y') }} Sekolah Pelita Sriwijaya. All rights reserved.
+    </div>
 
 
 </body>
