@@ -50,7 +50,7 @@ class CalonSiswaResource extends Resource
                             ->options(['TK' => 'TK', 'SD' => 'SD', 'SMP' => 'SMP'])
                             ->required(),
                         TextInput::make('tahun_ajaran')->label('Tahun Ajaran')->required()->default('2025-2026'),
-                        TextInput::make('nisn')->label('NISN')->required()->maxLength(10),
+                        TextInput::make('nisn')->label('NISN')->maxLength(10),
                     ])->columns(2),
                 // Di dalam schema form()
                 Select::make('status')
@@ -168,7 +168,7 @@ class CalonSiswaResource extends Resource
 
                                 Column::make('asalsekolah')->heading('Asal Sekolah'),
 
-                                Column::make('nins')->heading('NISN'),
+                                Column::make('nisn')->heading('NISN'),
 
 
                                 Column::make('nilai_ijazah')->heading('Nilai Ijazah'),

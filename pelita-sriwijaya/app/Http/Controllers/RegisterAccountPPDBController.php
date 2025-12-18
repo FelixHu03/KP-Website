@@ -32,15 +32,13 @@ class RegisterAccountPPDBController extends Controller
         $request->validate([
             'nama_lengkap' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:user_ppdbs'],
-            // 'tahun_ajaran' => ['required', 'string'],
             'nomor_handphone' => ['required', 'string', 'min:11', 'max:13', 'unique:user_ppdbs'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = UserPpdb::create([
             'nama_lengkap' => $request->nama_lengkap,
-            'email' => $request->email,
-            // 'tahun_ajaran' => $request->tahun_ajaran,
+            'email' => strtolower($request->email),
             'nomor_handphone' => $request->nomor_handphone,
             'password' => Hash::make($request->password),
         ]);

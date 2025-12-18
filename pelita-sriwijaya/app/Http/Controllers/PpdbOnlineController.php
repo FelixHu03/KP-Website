@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CalonSiswa;
 use App\Models\DokumenCalonSiswa;
 use App\Models\Gelombang;
+use App\Models\TahunAjaran;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,6 +34,7 @@ class PpdbOnlineController extends Controller
     public function showFormulir(Request $request, string $jenjang)
     {
         // Validasi sederhana agar URL-nya aman
+        $list_tahun = TahunAjaran::latest()->get();
         $jenjang_valid = strtoupper($jenjang);
         if (!in_array($jenjang_valid, ['TK', 'SD', 'SMP'])) {
             return redirect()->route('ppdb-online.pendaftaran');
@@ -40,7 +42,8 @@ class PpdbOnlineController extends Controller
 
         // Kirim 'jenjang' ke view
         return view('page.ppdb.formulir.formulir-ppdb', [
-            'jenjang_dipilih' => $jenjang_valid
+            'jenjang_dipilih' => $jenjang_valid,
+            'list_tahun'      => $list_tahun,
         ]);
     }
     public function showRiwayat()
@@ -93,6 +96,7 @@ class PpdbOnlineController extends Controller
             'nik' => [
                 'required',
                 'string',
+                'digits:16',
                 Rule::unique('calon_siswas')->where(function ($query) use ($request) {
                     return $query->where('jenjang_dipilih', $request->jenjang_dipilih);
                 })

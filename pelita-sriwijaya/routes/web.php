@@ -21,7 +21,6 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 use App\Http\Controllers\PostController;
 
-// Halaman Arsip (Menampilkan Semua)
 Route::get('/informasi', [PostController::class, 'index'])->name('page.post');
 Route::get('/informasi/{post:slug}', [PostController::class, 'show'])->name('page.post.show');
 
@@ -43,6 +42,10 @@ Route::prefix('ppdb')->group(function () {
     Route::get('/panduan', function () {
         return view('page.ppdb.panduanppdb');
     })->name('page.ppdb.panduanppdb');
+    Route::get('/info', function () {
+        return view('page.ppdb.infoppdb');
+    })->name('page.ppdb.infoppdb');
+
     // Rute Lupa Password
     Route::get('/forgot-password', [PpdbForgotPasswordController::class, 'showLinkRequestForm'])
         ->middleware('guest:ppdb')

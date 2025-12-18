@@ -57,16 +57,12 @@
             <ul class="list-disc pl-5 text-gray-700 space-y-2">
                 <li>PPDB 2026/2027 untuk SD Pelita Sriwijaya (usia anak minimal 6 tahun per Juli 2026)</li>
                 <li>PPDB 2026/2027 untuk SMP (untuk siswa kelas 6 SD)</li>
-                <li>PPDB 2026/2027 untuk SMA (untuk siswa kelas 9 SMP)</li>
             </ul>
             <div class="space-y-2 mt-4">
                 <a href="{{ route('page.ppdb.panduanppdb') }}" class="block bg-gray-800 text-white text-center px-4 py-2 rounded hover:bg-gray-700">
                     Panduan Pendaftaran
                 </a>
-                <a href="#"
-                    class="block bg-white border border-gray-400 text-center px-4 py-2 rounded hover:bg-gray-50">
-                    PPDB 2026/2027 TK, SD, SMP(Gelombang 3)
-                </a>
+                
             </div>
         </div>
     </section>

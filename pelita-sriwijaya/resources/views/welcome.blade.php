@@ -69,7 +69,7 @@
 
     <div class="text-start flex flex-col items-center space-y-10 py-8 px-4 md:px-10">
 
-        <div x-data="{
+        {{-- <div x-data="{
             images: [
                 '{{ asset('assets/image/logo tingkat sekolah/logo-SD-test.jpg') }}',
                 '{{ asset('assets/image/logo tingkat sekolah/logo-tk-test.png') }}',
@@ -85,38 +85,46 @@
                         class="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 object-cover rounded-lg shadow-md" />
                 </a>
             </template>
-        </div>
+        </div> --}}
 
         <div class="text-lg m-3 text-start w-full">
             <h1 class="text-orange-600 font-bold text-2xl">Selamat Datang di Sekolah Pelita Sriwijaya</h1>
-            <p class="mt-2.5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
-                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum</p>
+            <p class="mt-2.5">Selamat datang di Sekolah Pelita Sriwijaya Palembang, tempat di mana kualitas pendidikan
+                bertaraf Nasional bersanding dengan nilai-nilai keimanan. Kami berdedikasi menyelenggarakan pendidikan
+                berbasis IPTEK dan pengembangan karakter melalui fasilitas modern dan guru berpengalaman. Dengan program
+                unggulan bahasa Inggris dan Mandarin serta sarana pendukung yang lengkap, kami siap membimbing siswa menjadi
+                pribadi yang terampil, berprestasi, dan siap bersaing secara global sesuai dengan potensi unik yang mereka
+                miliki.</p>
         </div>
 
         <div class="text-lg m-3 text-start w-full">
             <h1 class="text-orange-600 font-bold text-2xl">Fasilitas</h1>
+
             <div x-data="{
-                images: [
-                    '{{ asset('assets/image/home/Fasilitas/aula.jpeg') }}',
-                    '{{ asset('assets/image/home/Fasilitas/halaman_depan.jpeg') }}',
-                    '{{ asset('assets/image/home/Fasilitas/play_ground.jpeg') }}',
-                    '{{ asset('assets/image/home/Fasilitas/Ruang_kelas.jpeg') }}',
-                    '{{ asset('assets/image/home/Fasilitas/lapangan_belakang.jpeg') }}',
-                    '{{ asset('assets/image/home/Fasilitas/lab.jpeg') }}',
-                ],
-                handleClick(image) {
-                    alert('Gambar diklik: ' + image);
-                }
-            }" class="grid grid-flow-col grid-cols-6 gap-2 justify-center items-center mt-8">
-                <template x-for="(image, index) in images" :key="index">
-                    <a :href="'#' + image" class="cursor-pointer transition-transform hover:scale-105">
-                        <img :src="image" alt="Logo Image"
+                facilities: [
+                    { src: '{{ asset('assets/image/home/Fasilitas/aula.jpeg') }}', label: 'Aula ' },
+                    { src: '{{ asset('assets/image/home/Fasilitas/halaman_depan.jpeg') }}', label: 'Halaman Depan' },
+                    { src: '{{ asset('assets/image/home/Fasilitas/play_ground.jpeg') }}', label: 'Area Bermain' },
+                    { src: '{{ asset('assets/image/home/Fasilitas/Ruang_kelas.jpeg') }}', label: 'Ruang Kelas' },
+                    { src: '{{ asset('assets/image/home/Fasilitas/lapangan_belakang.jpeg') }}', label: 'Lapangan Olahraga' },
+                    { src: '{{ asset('assets/image/home/Fasilitas/lab.jpeg') }}', label: 'Laboratorium Komputer' },
+                ]
+            }"
+                class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 justify-center items-start mt-8">
+
+                <template x-for="(item, index) in facilities" :key="index">
+                    <div class="flex flex-col items-center text-center group">
+
+
+                        <img :src="item.src" :alt="item.label"
                             class="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 object-cover rounded-lg shadow-md" />
-                    </a>
+
+                        <span x-text="item.label"
+                            class="mt-3 text-sm sm:text-base font-semibold text-gray-700 leading-tight"></span>
+
+                    </div>
                 </template>
+
             </div>
         </div>
 

@@ -29,7 +29,7 @@ class CalonSiswa extends Model
         'vegetarian',
         'handphone',
         'asalsekolah',
-        'nins', // khusus SMP
+        'nisn', // khusus SMP
         'nilai_ijazah', // khusus SMP
         'status',
     ];

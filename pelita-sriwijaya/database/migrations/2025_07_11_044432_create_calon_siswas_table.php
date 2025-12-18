@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('handphone');
             // Data Khusus SD & SMP
             $table->string('asalsekolah')->nullable();
-            $table->string('nins')->nullable();
+            $table->string('nisn')->nullable();
             
             // Data Khusus SMP
             $table->string('nilai_ijazah')->nullable();

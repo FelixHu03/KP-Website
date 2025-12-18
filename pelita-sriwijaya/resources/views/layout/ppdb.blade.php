@@ -31,7 +31,7 @@
                 <div class="hidden md:flex space-x-8 items-center gap-12">
                     <a href="{{ route('page.ppdb.welcomePpdb') }}"
                         class="text-gray-700 hover:text-orange-600 font-semibold transition">Home</a>
-                    <a href="{{ route('about') }}"
+                    <a href="{{ route('page.ppdb.infoppdb') }}"
                         class="text-gray-700 hover:text-orange-600 font-semibold transition">Info</a>
                     <a href="{{ route('ppdb.register') }}"
                         class="bg-orange-600 text-white px-4 py-2 rounded-md font-semibold hover:bg-orange-700 transition">Daftar</a>

@@ -8,7 +8,7 @@
             <form action="{{ route('ppdb.register.submit') }}" method="POST" class="space-y-5">
                 @csrf
 
-                
+
 
                 <!-- Nama Lengkap -->
                 <div>
@@ -47,6 +47,10 @@
                     <input type="password" id="password" name="password" required
                         class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none" />
                     <div class="mt-1 text-sm text-gray-500">*Digunakan untuk login nantinya</div>
+                    {{-- Pesan Error Password --}}
+                    @error('password')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- Konfirmasi Password -->
@@ -55,6 +59,9 @@
                         Password <span class="text-red-500">*</span></label>
                     <input type="password" id="password_confirmation" name="password_confirmation" required
                         class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none" />
+                    @error('password_confirmation')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- Submit Button -->

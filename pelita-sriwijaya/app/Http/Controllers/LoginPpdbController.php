@@ -27,10 +27,11 @@ class LoginPpdbController extends Controller
             'login' => 'required',
             'password' => 'required',
         ]);
-
+        $inputLogin = $request->login;
+        $inputLoginLowercase = strtolower($inputLogin);
         // Cek berdasarkan email atau nomor handphone
-        $user = UserPpdb::where('email', $request->login)
-            ->orWhere('nomor_handphone', $request->login)
+        $user = UserPpdb::where('email', $inputLoginLowercase)
+            ->orWhere('nomor_handphone', $inputLogin)
             ->first();
 
         if ($user && Hash::check($request->password, $user->password)) {
