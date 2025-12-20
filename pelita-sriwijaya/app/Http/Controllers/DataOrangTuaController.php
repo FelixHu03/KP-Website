@@ -185,7 +185,7 @@ class DataOrangTuaController extends Controller
             'pendidikan_ayah' => 'required|string',
             'pekerjaan_ayah' => 'required|string|max:255',
             'penghasilan_ayah' => 'required|string',
-            'hp_ayah' => 'required|string|digits_between:10,13',
+            'hp_ayah' => 'required|string|digits_between:10,14',
 
             'nama_ibu' => 'required|string|max:255',
             'nik_ibu' => 'required|string|digits:16',
@@ -193,7 +193,7 @@ class DataOrangTuaController extends Controller
             'pendidikan_ibu' => 'required|string',
             'pekerjaan_ibu' => 'required|string|max:255',
             'penghasilan_ibu' => 'required|string',
-            'hp_ibu' => 'required|string|digits_between:10,13',
+            'hp_ibu' => 'required|string|digits_between:10,14',
 
 
             'alamat' => 'required|string',
@@ -205,8 +205,8 @@ class DataOrangTuaController extends Controller
             'nik_ayah.digits' => 'Nomor NIK harus 16 digit.',
             'nik_ibu.digits' => 'Nomor NIK harus 16 digit.',
 
-            'hp_ayah.digits_between' => 'Nomor Handphone harus 10 sampai 13 digit.',
-            'hp_ibu.digits_between' => 'Nomor Handphone harus 10 sampai 13 digit.',
+            'hp_ayah.digits_between' => 'Nomor Handphone harus 10 sampai 14 digit.',
+            'hp_ibu.digits_between' => 'Nomor Handphone harus 10 sampai 14 digit.',
         ];
 
         return $request->validate($rules, $messages);
