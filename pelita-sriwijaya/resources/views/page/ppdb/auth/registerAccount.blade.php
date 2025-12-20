@@ -44,7 +44,7 @@
                 <div>
                     <label for="password" class="block text-sm font-semibold text-gray-700 mb-1">Password Login <span
                             class="text-red-500">*</span></label>
-                    <input type="password" id="password" name="password" required
+                    <input type="password" id="password" name="password" required placeholder="password minimal 8 karakter"
                         class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none" />
                     <div class="mt-1 text-sm text-gray-500">*Digunakan untuk login nantinya</div>
                     {{-- Pesan Error Password --}}
