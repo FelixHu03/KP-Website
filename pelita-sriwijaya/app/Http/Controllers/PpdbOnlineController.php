@@ -39,11 +39,15 @@ class PpdbOnlineController extends Controller
         if (!in_array($jenjang_valid, ['TK', 'SD', 'SMP'])) {
             return redirect()->route('ppdb-online.pendaftaran');
         }
-
+        $gelombangAktif = Gelombang::where('is_active', true)
+            ->whereDate('tanggal_mulai', '<=', Carbon::now())
+            ->whereDate('tanggal_selesai', '>=', Carbon::now())
+            ->first();
         // Kirim 'jenjang' ke view
         return view('page.ppdb.formulir.formulir-ppdb', [
             'jenjang_dipilih' => $jenjang_valid,
             'list_tahun'      => $list_tahun,
+            'gelombangAktif'  => $gelombangAktif,
         ]);
     }
     public function showRiwayat()
@@ -66,12 +70,12 @@ class PpdbOnlineController extends Controller
         // Ambil data siswa, tapi juga load relasi '
         $calonSiswa = CalonSiswa::with(['dokumen', 'user.dataOrangTua', 'gelombang'])
             ->where('id', $id)
-            ->where('user_ppdb_id', Auth::guard('ppdb')->id()) 
+            ->where('user_ppdb_id', Auth::guard('ppdb')->id())
             ->firstOrFail();
 
         // Tampilkan view detail dan kirim datanya
         return view('page.ppdb.detail-pendaftaran', [
-            'siswa' => $calonSiswa
+            'siswa' => $calonSiswa,
         ]);
     }
     /**
@@ -127,7 +131,7 @@ class PpdbOnlineController extends Controller
         $gelombangAktif = Gelombang::where('is_active', true)
             ->whereDate('tanggal_mulai', '<=', $today)
             ->whereDate('tanggal_selesai', '>=', $today)
-            ->first(); // Ambil satu saja
+            ->first();
 
         if (!$gelombangAktif) {
             // Jika tidak ada gelombang buka, tolak pendaftaran

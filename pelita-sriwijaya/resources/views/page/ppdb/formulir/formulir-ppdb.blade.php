@@ -173,19 +173,20 @@
                     </div>
 
                     {{-- Gelombang --}}
-                    @php
+                    {{-- @php
                         $today = \Carbon\Carbon::now();
-                        $gelombang = \App\Models\Gelombang::whereDate('tanggal_mulai', '<=', $today)
+                        $gelombang = \App\Models\Gelombang::whereDate('is_active', '<=', $today)
                             ->whereDate('tanggal_selesai', '>=', $today)
+                            ->where('is_active', '==', 1)
                             ->first();
-                    @endphp
+                    @endphp --}}
 
-                    @if ($gelombang)
+                    @if ($gelombangAktif)
                         <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4">
                             <p class="font-bold">Info Pendaftaran</p>
-                            <p>Saat ini Anda mendaftar pada: <strong>{{ $gelombang->nama_gelombang }}</strong></p>
+                            <p>Saat ini Anda mendaftar pada: <strong>{{ $gelombangAktif->nama_gelombang }}</strong></p>
                             <p>Biaya Pendaftaran:
-                                <strong>{{ $gelombang->biaya_pendaftaran == 0 ? 'GRATIS' : 'Rp ' . number_format($gelombang->biaya_pendaftaran) }}</strong>
+                                <strong>{{ $gelombangAktif->biaya_pendaftaran == 0 ? 'GRATIS' : 'Rp ' . number_format($gelombangAktif->biaya_pendaftaran) }}</strong>
                             </p>
                         </div>
                     @else
