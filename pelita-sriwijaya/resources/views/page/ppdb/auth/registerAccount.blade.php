@@ -20,7 +20,7 @@
 
                 <!-- Email -->
                 <div>
-                    <label for="email" class="block text-sm font-semibold text-gray-700 mb-1">Email <span
+                    <label for="email" class="block text-sm font-semibold text-gray-700 mb-1">Email orang Tua <span
                             class="text-red-500">*</span></label>
                     <input type="email" id="email" name="email" placeholder="email aktif" required
                         class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none" />
@@ -31,7 +31,7 @@
 
                 <!-- Nomor HP -->
                 <div>
-                    <label for="nomor_handphone" class="block text-sm font-semibold text-gray-700 mb-1">Nomor Handphone (WA)
+                    <label for="nomor_handphone" class="block text-sm font-semibold text-gray-700 mb-1">Nomor Handphone Orang tua (WA)
                         <span class="text-red-500">*</span></label>
                     <input type="tel" id="nomor_handphone" name="nomor_handphone" placeholder="0812xxxxxxx" required
                         class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none" />

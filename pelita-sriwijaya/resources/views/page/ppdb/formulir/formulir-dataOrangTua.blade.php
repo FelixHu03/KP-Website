@@ -62,8 +62,11 @@
                         <label for="kartukeluarga" class="md:w-48 font-medium text-lg leading-tight">
                             Kartu Keluarga<span class="text-red-500">*</span>
                         </label>
-                        <input type="file" id="kartukeluarga" name="kartukeluarga" required
+                        <input type="file" id="kartukeluarga" name="kartukeluarga" required accept=".jpg,.jpeg,.png,.pdf"
                             class="w-full text-lg file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                        <p class="text-sm text-gray-500 mt-1">
+                            Format: JPG, JPEG, PNG, atau PDF. Maksimal ukuran file 2MB.
+                        </p>
                         @error('kartukeluarga')
                             <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
                         @enderror
@@ -245,7 +248,7 @@
                         @enderror
                     </div>
                     {{-- NIK Ibu --}}
-                    <div class="flex flex-col md:flex-row items-start gap-4" value="{{ old('nik_ibu') }}">
+                    <div class="flex flex-col md:flex-row items-start gap-4" x-data="{ nik_ibu: '{{ old('nik_ibu', '') }}' }">
 
                         <label for="nik_ibu" class="md:w-48 font-medium text-lg leading-tight pt-3">
                             NIK Ibu <span class="text-red-500">*</span>
@@ -292,7 +295,7 @@
                             Tanggal Lahir Ibu<span class="text-red-500">*</span>
                         </label>
                         <input type="date" id="tanggallahir_ibu" name="tanggallahir_ibu" required
-                        value="{{ old('tanggallahir_ibu') }}"
+                            value="{{ old('tanggallahir_ibu') }}"
                             class="w-full border border-gray-300 rounded px-5 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                         @error('tanggallahir_ibu')
                             <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
@@ -323,8 +326,7 @@
                             Pekerjaan Ibu <span class="text-red-500">*</span>
                         </label>
                         <input type="text" id="pekerjaan_ibu" name="pekerjaan_ibu" required
-                            placeholder="Pekerjaan ibu"
-                            value="{{ old('pekerjaan_ibu') }}"
+                            placeholder="Pekerjaan ibu" value="{{ old('pekerjaan_ibu') }}"
                             class="w-full border border-gray-300 rounded px-5 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                         @error('pekerjaan_ibu')
                             <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
