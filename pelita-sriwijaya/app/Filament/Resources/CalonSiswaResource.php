@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CalonSiswaResource\Pages;
 use App\Models\CalonSiswa;
 use App\Filament\Resources\DataOrangTuaResource;
+use App\Models\Gelombang;
+use App\Models\TahunAjaran;
 use BcMath\Number;
 use Carbon\Carbon;
 use Dom\Text;
@@ -49,7 +51,9 @@ class CalonSiswaResource extends Resource
                             ->label('Jenjang')
                             ->options(['TK' => 'TK', 'SD' => 'SD', 'SMP' => 'SMP'])
                             ->required(),
-                        TextInput::make('tahun_ajaran')->label('Tahun Ajaran')->required()->default('2025-2026'),
+                        TextInput::make('tahun_ajaran')->label('Tahun Ajaran')->options(TahunAjaran::query()->pluck('tahun', 'tahun'))
+                            ->required()
+                            ->searchable(),
                         TextInput::make('nisn')->label('NISN')->maxLength(10),
                     ])->columns(2),
                 // Di dalam schema form()
@@ -136,13 +140,17 @@ class CalonSiswaResource extends Resource
                     ->badge()
                     ->color(fn(string $state): string => match ($state) {
                         'Sedang Diproses' => 'warning',
-                        'Lulus' => 'success',           
-                        'Tidak Lulus' => 'danger',      
+                        'Lulus' => 'success',
+                        'Tidak Lulus' => 'danger',
                     })
                     ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('jenjang_dipilih')->options(['TK' => 'TK', 'SD' => 'SD', 'SMP' => 'SMP']),
+                SelectFilter::make('tahun_ajaran')->label('Tahun Ajaran')
+                    ->options(TahunAjaran::query()->pluck('tahun', 'tahun')),
+                SelectFilter::make('gelombang_id')->label('gelombang')
+                    ->options(Gelombang::query()->pluck('nama_gelombang', 'id')),
             ])
             ->headerActions([
                 ExportAction::make()->label('Export Semua Data')
