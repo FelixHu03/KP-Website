@@ -51,9 +51,10 @@ class CalonSiswaResource extends Resource
                             ->label('Jenjang')
                             ->options(['TK' => 'TK', 'SD' => 'SD', 'SMP' => 'SMP'])
                             ->required(),
-                        TextInput::make('tahun_ajaran')->label('Tahun Ajaran')->options(TahunAjaran::query()->pluck('tahun', 'tahun'))
+                        Select::make('tahun_ajaran')->label('Tahun Ajaran')->options(TahunAjaran::query()->pluck('tahun', 'tahun'))
                             ->required()
-                            ->searchable(),
+                            ->searchable()
+                            ->preload(),
                         TextInput::make('nisn')->label('NISN')->maxLength(10),
                     ])->columns(2),
                 // Di dalam schema form()

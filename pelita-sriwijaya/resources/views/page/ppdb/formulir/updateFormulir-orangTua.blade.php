@@ -70,7 +70,9 @@
 
                             <input type="file" id="kartukeluarga" name="kartukeluarga" accept=".jpg,.jpeg,.png,.pdf"
                                 class="w-full text-lg file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-
+                            <p class="text-sm text-gray-500 mt-1">
+                                Format: JPG, JPEG, PNG, atau PDF. Maksimal ukuran file 2MB.
+                            </p>
                             @error('kartukeluarga')
                                 <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
                             @enderror
