@@ -1,4 +1,4 @@
-@extends('layout.ppdb') panduan
+@extends('layout.ppdb') 
 
 @section('main-content')
     {{-- Hero Section & Judul --}}

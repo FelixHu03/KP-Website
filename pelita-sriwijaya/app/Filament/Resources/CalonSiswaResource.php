@@ -31,6 +31,8 @@ use Filament\Tables\Filters\SelectFilter;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 use pxlrbt\FilamentExcel\Columns\Column;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 
 class CalonSiswaResource extends Resource
 {
@@ -38,76 +40,102 @@ class CalonSiswaResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
     protected static ?string $navigationLabel = 'Data Calon Siswa';
 
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                // --- BAGIAN 1: DATA UTAMA ---
-                Section::make('Data Pendaftaran')
-                    ->schema([
-                        TextInput::make('nik')->label('NIK')->required()->maxLength(16),
-                        TextInput::make('namalengkap')->label('Nama Lengkap')->required(),
-                        Select::make('jenjang_dipilih')
-                            ->label('Jenjang')
-                            ->options(['TK' => 'TK', 'SD' => 'SD', 'SMP' => 'SMP'])
-                            ->required(),
-                        Select::make('tahun_ajaran')->label('Tahun Ajaran')->options(TahunAjaran::query()->pluck('tahun', 'tahun'))
-                            ->required()
-                            ->searchable()
-                            ->preload(),
-                        TextInput::make('nisn')->label('NISN')->maxLength(10),
-                    ])->columns(2),
-                // Di dalam schema form()
-                Select::make('status')
-                    ->label('Status Penerimaan')
-                    ->options([
-                        'Sedang Diproses' => 'Sedang Diproses',
-                        'Lulus' => 'Lulus',
-                        'Tidak Lulus' => 'Tidak Lulus',
-                    ])
-                    ->required()
-                    ->native(false),
-                Section::make('Data Pribadi')
-                    ->schema([
-                        TextInput::make('tempatlahir')->label('Tempat Lahir'),
-                        DatePicker::make('tanggallahir')->label('Tanggal Lahir'),
-                        Select::make('jenis_kelamin')->options(['Laki-laki' => 'Laki-laki', 'Perempuan' => 'Perempuan']),
-                        TextInput::make('handphone')->label('No HP')->tel(),
-                        Select::make('vegetarian')->label('Apakah Vegetarian?')->options(['Ya' => 'Ya', 'Tidak' => 'Tidak']),
-                        Select::make('gelombang')->options([
-                            'Gelombang 1' => 'Gelombang 1',
-                            'Gelombang 2' => 'Gelombang 2',
-                            'Gelombang 3' => 'Gelombang 3',
-                        ]),
-                    ])->columns(2),
+public static function form(Form $form): Form
+{
+    return $form
+        ->schema([
+            // --- BAGIAN 1: DATA UTAMA ---
+            Section::make('Data Pendaftaran')
+                ->schema([
+                    TextInput::make('nik')->label('NIK')->required()->numeric()->minLength(16)->maxLength(16),
+                    TextInput::make('namalengkap')->label('Nama Lengkap')->required(),
+                    
+                    Select::make('jenjang_dipilih')
+                        ->label('Jenjang')
+                        ->options(['TK' => 'TK', 'SD' => 'SD', 'SMP' => 'SMP'])
+                        ->required()
+                        ->live()
+                        ->afterStateUpdated(function (Set $set) {
+                             $set('nisn', null); $set('asalsekolah', null); $set('nilai_ijazah', null);
+                        }),
 
-                // GAMBAR AKTA
-                Section::make('Dokumen Siswa')
-                    ->schema([
-                        Repeater::make('dokumen')
-                            ->relationship()
-                            ->schema([
-                                TextInput::make('jenis_dokumen')
-                                    ->label('Jenis Dokumen')
-                                    ->disabled()
-                                    ->formatStateUsing(fn(string $state): string => str($state)->replace('_', ' ')->title()),
+                    Select::make('tahun_ajaran')
+                        ->options(TahunAjaran::query()->pluck('tahun', 'tahun'))
+                        ->required(),
 
-                                FileUpload::make('path_penyimpanan')
-                                    ->label('File / Gambar')
-                                    ->disk('public')
-                                    ->acceptedFileTypes(['image/*', 'application/pdf']) // Gunakan ini agar PDF juga bisa masuk/tampil
-                                    ->openable()
-                                    ->downloadable()
-                                    ->deletable(false)
-                                    ->columnSpanFull(),
-                            ])
-                            ->addable(false)
-                            ->deletable(false)
-                            ->grid(2)
-                    ])
-            ]);
-    }
+                    // Smart Select Gelombang (Kode sebelumnya)
+                    Select::make('gelombang_id')
+                        ->relationship('gelombang', 'nama_gelombang')
+                        ->default(fn () => Gelombang::where('is_active', true)->first()?->id)
+                        ->disabled(fn (string $operation) => $operation === 'edit')
+                        ->dehydrated()
+                        ->required(),
 
+                    Select::make('status')
+                        ->options(['Sedang Diproses' => 'Sedang Diproses', 'Lulus' => 'Lulus', 'Tidak Lulus' => 'Tidak Lulus'])
+                        ->default('Sedang Diproses')
+                        ->required(),
+                ])->columns(2),
+
+            // --- BAGIAN 2: DATA PRIBADI ---
+            Section::make('Data Pribadi')
+                ->schema([
+                    TextInput::make('tempatlahir')->required(),
+                    DatePicker::make('tanggallahir')->required(),
+                    Select::make('jenis_kelamin')->options(['Laki-laki' => 'Laki-laki', 'Perempuan' => 'Perempuan'])->required(),
+                    TextInput::make('handphone')->tel()->required(),
+                    Select::make('vegetarian')->options(['Ya' => 'Ya', 'Tidak' => 'Tidak'])->required(),
+                ])->columns(2),
+
+            // --- BAGIAN 3: DATA KHUSUS (CONDITIONAL) ---
+            Section::make('Data Akademik')
+                ->schema([
+                    TextInput::make('asalsekolah')->visible(fn (Get $get) => $get('jenjang_dipilih') !== 'TK' && $get('jenjang_dipilih') !== null),
+                    TextInput::make('nisn')->label('NISN (10)')->numeric()->length(10)->visible(fn (Get $get) => $get('jenjang_dipilih') === 'SMP'),
+                    TextInput::make('nilai_ijazah')->numeric()->visible(fn (Get $get) => $get('jenjang_dipilih') === 'SMP'),
+                ])
+                ->visible(fn (Get $get) => $get('jenjang_dipilih') !== 'TK' && $get('jenjang_dipilih') !== null),
+
+            // --- BAGIAN 4: DOKUMEN (AKTA & RAPORT) ---
+            Section::make('Upload Dokumen')
+                ->description('Silakan upload Akta Kelahiran atau Dokumen lain di sini.')
+                ->schema([
+                    Repeater::make('dokumen')
+                        ->relationship() 
+                        ->label('Daftar Dokumen')
+                        ->schema([
+                            
+                            // 1. Pilih Jenis Dokumen (Agar admin bisa menentukan ini Akta atau Raport)
+                            Select::make('jenis_dokumen')
+                                ->label('Jenis Dokumen')
+                                ->options([
+                                    'akta_kelahiran' => 'Akta Kelahiran',
+                                    'kartu_keluarga' => 'Kartu Keluarga',
+                                    'foto_raport' => 'Foto Raport (Khusus SMP)',
+                                    'lainnya' => 'Lainnya',
+                                ])
+                                ->required()
+                                ->formatStateUsing(fn(?string $state): string => $state ?? ''),
+
+                            // 2. Upload Filenya
+                            FileUpload::make('path_penyimpanan')
+                                ->label('File')
+                                ->disk('public') // Pastikan disk public sudah disetting
+                                ->directory('dokumen-ppdb') // Folder penyimpanan
+                                ->acceptedFileTypes(['image/*', 'application/pdf'])
+                                ->openable()
+                                ->downloadable()
+                                ->required()
+                                ->columnSpanFull(),
+                        ])
+                        ->grid(2)
+                        // FITUR TAMBAH DIAKTIFKAN KEMBALI
+                        ->addActionLabel('Tambah Dokumen Baru')
+                        ->defaultItems(1) // Saat create baru, langsung muncul 1 kotak kosong
+                        ->reorderable(false)
+                ])
+        ]);
+}
     public static function table(Table $table): Table
     {
         return $table
