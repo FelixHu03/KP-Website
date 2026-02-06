@@ -1,4 +1,4 @@
-@extends('layout.ppdb')
+@extends('layout.ppdb') panduan
 
 @section('main-content')
     {{-- Hero Section & Judul --}}
@@ -99,6 +99,7 @@
                         <div
                             class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center text-orange-700 font-bold text-lg">
                             1</div>
+                        {{-- Icon --}}
                         <svg class="w-6 h-6 text-gray-300 group-hover:text-orange-500 transition" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -109,9 +110,12 @@
                     <h3 class="text-lg font-bold text-gray-900 mb-2">Buat Akun Orang Tua</h3>
                     <p class="text-sm text-gray-600 mb-4 h-12">Klik menu <strong>"Daftar"</strong> dan isi data diri (Nama,
                         Email, Password) untuk membuat akun.</p>
-                    <div class="rounded-lg overflow-hidden border border-gray-200 bg-gray-50">
+
+                    {{-- GAMBAR DIPERBESAR --}}
+                    <div
+                        class="rounded-lg overflow-hidden border border-gray-200 bg-gray-50 h-72 flex items-center justify-center relative">
                         <img src="{{ asset('assets/image/panduanppdb/step_1.png') }}" alt="Register"
-                            class="w-full h-40 object-cover object-top opacity-90 group-hover:opacity-100 transition">
+                            class="w-full h-full object-contain p-2 transition-transform duration-500 transform group-hover:scale-110 cursor-zoom-in">
                     </div>
                 </div>
             </div>
@@ -125,6 +129,7 @@
                         <div
                             class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center text-orange-700 font-bold text-lg">
                             2</div>
+                        {{-- Icon --}}
                         <svg class="w-6 h-6 text-gray-300 group-hover:text-orange-500 transition" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -134,9 +139,12 @@
                     <h3 class="text-lg font-bold text-gray-900 mb-2">Lengkapi Profil</h3>
                     <p class="text-sm text-gray-600 mb-4 h-12">Login dan lengkapi biodata Ayah & Ibu serta nomor WhatsApp
                         yang aktif.</p>
-                    <div class="rounded-lg overflow-hidden border border-gray-200 bg-gray-50">
+
+                    {{-- GAMBAR DIPERBESAR --}}
+                    <div
+                        class="rounded-lg overflow-hidden border border-gray-200 bg-gray-50 h-72 flex items-center justify-center relative">
                         <img src="{{ asset('assets/image/panduanppdb/step_2.png') }}" alt="Profile Data"
-                            class="w-full h-40 object-cover object-top opacity-90 group-hover:opacity-100 transition">
+                            class="w-full h-full object-contain p-2 transition-transform duration-500 transform group-hover:scale-110 cursor-zoom-in">
                     </div>
                 </div>
             </div>
@@ -150,6 +158,7 @@
                         <div
                             class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center text-orange-700 font-bold text-lg">
                             3</div>
+                        {{-- Icon --}}
                         <svg class="w-6 h-6 text-gray-300 group-hover:text-orange-500 transition" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -160,9 +169,12 @@
                     <h3 class="text-lg font-bold text-gray-900 mb-2">Masuk Dashboard</h3>
                     <p class="text-sm text-gray-600 mb-4 h-12">Pada halaman Dashboard, klik tombol <strong>"Isi
                             Formulir"</strong> untuk memulai pendaftaran anak.</p>
-                    <div class="rounded-lg overflow-hidden border border-gray-200 bg-gray-50">
+
+                    {{-- GAMBAR DIPERBESAR --}}
+                    <div
+                        class="rounded-lg overflow-hidden border border-gray-200 bg-gray-50 h-72 flex items-center justify-center relative">
                         <img src="{{ asset('assets/image/panduanppdb/step_3.png') }}" alt="Dashboard"
-                            class="w-full h-40 object-cover object-top opacity-90 group-hover:opacity-100 transition">
+                            class="w-full h-full object-contain p-2 transition-transform duration-500 transform group-hover:scale-110 cursor-zoom-in">
                     </div>
                 </div>
             </div>
@@ -176,6 +188,7 @@
                         <div
                             class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center text-orange-700 font-bold text-lg">
                             4</div>
+                        {{-- Icon --}}
                         <svg class="w-6 h-6 text-gray-300 group-hover:text-orange-500 transition" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -186,9 +199,12 @@
                     <h3 class="text-lg font-bold text-gray-900 mb-2">Pilih Jenjang</h3>
                     <p class="text-sm text-gray-600 mb-4 h-12">Pilih jenjang pendidikan yang sesuai (TK, SD, atau SMP)
                         untuk melanjutkan.</p>
-                    <div class="rounded-lg overflow-hidden border border-gray-200 bg-gray-50">
+
+                    {{-- GAMBAR DIPERBESAR --}}
+                    <div
+                        class="rounded-lg overflow-hidden border border-gray-200 bg-gray-50 h-72 flex items-center justify-center relative">
                         <img src="{{ asset('assets/image/panduanppdb/step_4.png') }}" alt="Pilih Jenjang"
-                            class="w-full h-40 object-cover object-top opacity-90 group-hover:opacity-100 transition">
+                            class="w-full h-full object-contain p-2 transition-transform duration-500 transform group-hover:scale-110 cursor-zoom-in">
                     </div>
                 </div>
             </div>
@@ -202,6 +218,7 @@
                         <div
                             class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center text-orange-700 font-bold text-lg">
                             5</div>
+                        {{-- Icon --}}
                         <svg class="w-6 h-6 text-gray-300 group-hover:text-orange-500 transition" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -212,9 +229,12 @@
                     <h3 class="text-lg font-bold text-gray-900 mb-2">Isi Data & Upload</h3>
                     <p class="text-sm text-gray-600 mb-4 h-12">Isi lengkap data siswa, data sekolah asal, dan upload
                         dokumen (KK & Akta).</p>
-                    <div class="rounded-lg overflow-hidden border border-gray-200 bg-gray-50">
+
+                    {{-- GAMBAR DIPERBESAR --}}
+                    <div
+                        class="rounded-lg overflow-hidden border border-gray-200 bg-gray-50 h-72 flex items-center justify-center relative">
                         <img src="{{ asset('assets/image/panduanppdb/step_5.png') }}" alt="Formulir"
-                            class="w-full h-40 object-cover object-top opacity-90 group-hover:opacity-100 transition">
+                            class="w-full h-full object-contain p-2 transition-transform duration-500 transform group-hover:scale-110 cursor-zoom-in">
                     </div>
                 </div>
             </div>
@@ -228,6 +248,7 @@
                         <div
                             class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center text-orange-700 font-bold text-lg">
                             6</div>
+                        {{-- Icon --}}
                         <svg class="w-6 h-6 text-gray-300 group-hover:text-orange-500 transition" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -236,10 +257,14 @@
                     </div>
                     <h3 class="text-lg font-bold text-gray-900 mb-2">Verifikasi & Hasil</h3>
                     <p class="text-sm text-gray-600 mb-4 h-12">Pantau menu "Riwayat Pendaftaran". Jika status
-                        <strong>Lulus</strong>, silakan daftar ulang.</p>
-                    <div class="rounded-lg overflow-hidden border border-gray-200 bg-gray-50">
+                        <strong>Lulus</strong>, silakan daftar ulang.
+                    </p>
+
+                    {{-- GAMBAR DIPERBESAR --}}
+                    <div
+                        class="rounded-lg overflow-hidden border border-gray-200 bg-gray-50 h-72 flex items-center justify-center relative">
                         <img src="{{ asset('assets/image/panduanppdb/step_6.png') }}" alt="Pengumuman"
-                            class="w-full h-40 object-cover object-top opacity-90 group-hover:opacity-100 transition">
+                            class="w-full h-full object-contain p-2 transition-transform duration-500 transform group-hover:scale-110 cursor-zoom-in">
                     </div>
                 </div>
             </div>
