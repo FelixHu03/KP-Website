@@ -50,8 +50,8 @@ cd nama-repo-ppdb
 ### 2. Install Dependensi
 Install library PHP dan aset frontend *jalankan di terminal*:
 ```
-1. composer install
-2. npm install
+composer install
+npm install
 ```
 ### 3. Konfigurasi Environment
 Duplikat file .env.example menjadi .env lalu Buka file .env dan sesuaikan pengaturan database Anda *Contoh*:
@@ -66,8 +66,8 @@ DB_PASSWORD=
 ### 4. Generate Key & Migrasi Database
 Buat Application Key dan jalankan struktur tabel (termasuk indexing) *Jalankan Di terminal*:
 ```
-1. php artisan key:generate
-2. php artisan migrate
+php artisan key:generate
+php artisan migrate
 ```
 ### 5. Buat Akun Admin (Filament) *Jalankan Diterminal*
 Untuk bisa masuk ke dashboard admin, buat user baru:
